@@ -5,6 +5,10 @@ public partial class ShipController : RigidBody3D
     [Export]
     public float max_speed = 50;
     [Export]
+    public float natural_speed = 25;
+    [Export]
+    public float brake_speed = 5;
+    [Export]
     public float acceleration = 0.6f;
     [Export]
     public float pitch_speed = 1.5f;
@@ -12,7 +16,7 @@ public partial class ShipController : RigidBody3D
     public float roll_speed = 1.9f;
     [Export]
     public float yaw_speed = 1.25f;
-    private float forward_speed = 0;
+    private float forward_speed = 30;
 
     private float pitch_input = 0;
     private float yaw_input = 0;
@@ -24,8 +28,11 @@ public partial class ShipController : RigidBody3D
         if(Input.IsActionPressed("throttle_up")){
             forward_speed = (float)Mathf.Lerp(forward_speed, max_speed, acceleration * delta);
         }
-        if(Input.IsActionPressed("throttle_down")){
-            forward_speed = (float)Mathf.Lerp(forward_speed, -max_speed, acceleration * delta);
+        else if(Input.IsActionPressed("throttle_down")){
+            forward_speed = (float)Mathf.Lerp(forward_speed, brake_speed, acceleration * delta);
+        }
+        else{
+            forward_speed = (float)Mathf.Lerp(forward_speed, natural_speed, acceleration * delta);
         }
 
         pitch_input = Input.GetAxis("pitch_down", "pitch_up");
