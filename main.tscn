@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwh1hmohw1io3"]
+[gd_scene load_steps=5 format=3 uid="uid://dwh1hmohw1io3"]
 
 [ext_resource type="Script" path="res://ShipController.cs" id="1_gx3vp"]
 [ext_resource type="ArrayMesh" uid="uid://bmevhw4v21vkt" path="res://Models/Ships/Spaceship.obj" id="2_817dt"]
+[ext_resource type="Script" path="res://Camera.cs" id="3_822p4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_37uj3"]
 size = Vector3(1.98374, 0.948717, 7.89419)
@@ -19,6 +20,12 @@ shape = SubResource("BoxShape3D_37uj3")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 mesh = ExtResource("2_817dt")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.0218495, -0.486457, 0.873431, -0.0121653, 0.873704, 0.486305, -0.999687, 0, -0.0250079, 10.4754, 7.3347, -0.332341)
-fov = 94.8191
+[node name="OuterGimbal" type="Node3D" parent="."]
+script = ExtResource("3_822p4")
+
+[node name="InnerGimbal" type="Node3D" parent="OuterGimbal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="OuterGimbal/InnerGimbal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+fov = 80.1
