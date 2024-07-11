@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwh1hmohw1io3"]
+
+[ext_resource type="Script" path="res://ShipController.cs" id="1_gx3vp"]
+[ext_resource type="ArrayMesh" uid="uid://bmevhw4v21vkt" path="res://Models/Ships/Spaceship.obj" id="2_817dt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_37uj3"]
+size = Vector3(1.98374, 0.948717, 7.89419)
+
+[node name="Main" type="Node3D"]
+
+[node name="Spaceship" type="RigidBody3D" parent="."]
+gravity_scale = 0.0
+script = ExtResource("1_gx3vp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Spaceship"]
+shape = SubResource("BoxShape3D_37uj3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Spaceship"]
+mesh = ExtResource("2_817dt")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.0218495, -0.486457, 0.873431, -0.0121653, 0.873704, 0.486305, -0.999687, 0, -0.0250079, 10.4754, 7.3347, -0.332341)
+fov = 94.8191
