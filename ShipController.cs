@@ -49,17 +49,18 @@ public partial class ShipController : RigidBody3D
 		yaw_input = Input.GetAxis("yaw_right", "yaw_left");
 		roll_input = Input.GetAxis("roll_right", "roll_left");
 
+
+		Quaternion pitch = new Quaternion(Vector3.Right, pitch_input * pitch_speed * (float)delta);
+		Quaternion yaw = new Quaternion(Vector3.Up, yaw_input * yaw_speed * (float)delta);
+		Quaternion roll = new Quaternion(Vector3.Forward, roll_input * roll_speed * (float)delta);
+
 		Transform3D currentTransform = GlobalTransform;
+		Quaternion currentRotation = new Quaternion(currentTransform.Basis);
+	   
+	   currentRotation = currentRotation * roll * pitch * yaw;
+	   currentRotation.Normalized();
 
-	   Basis rotatedBasis = currentTransform.Basis;
-	   rotatedBasis = rotatedBasis.Rotated(Transform.Basis.Z, roll_input * roll_speed * (float)delta);
-	   rotatedBasis = rotatedBasis.Rotated(Transform.Basis.X, pitch_input * pitch_speed * (float)delta);
-	   rotatedBasis = rotatedBasis.Rotated(Transform.Basis.Y, yaw_input * yaw_speed * (float)delta);
-
-
-	   rotatedBasis = rotatedBasis.Orthonormalized();
-
-	   currentTransform.Basis = rotatedBasis;
+	   currentTransform.Basis = new Basis(currentRotation);
 	   GlobalTransform = currentTransform;
 
 	}
