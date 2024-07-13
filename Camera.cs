@@ -21,7 +21,7 @@ public partial class Camera : Camera3D
     [Export]
     public float fov_lerp_speed = 0.05f;
     [Export]
-    public float camera_lerp_speed = 20f;
+    public float camera_lerp_speed = 200f;
 
     private Vector3 offset = new Vector3(0, 5, 15);
     private ShipController shipController;
@@ -55,13 +55,13 @@ public partial class Camera : Camera3D
         {
             if (mouseEvent.Relative.X != 0)
             {
-                //RotateObjectLocal(Vector3.Up, dirX * mouseEvent.Relative.X * mouse_sensitivity);
+                shipController.roll_input = dirX * mouseEvent.Relative.X * mouse_sensitivity;
                 //Yaw
             }
 
             if (mouseEvent.Relative.Y != 0)
             {
-                //RotateObjectLocal(Vector3.Right, dirY * mouseEvent.Relative.Y * mouse_sensitivity);
+                shipController.pitch_input = dirY * mouseEvent.Relative.Y * mouse_sensitivity;
                 //Pitch
             }
 
@@ -88,13 +88,15 @@ public partial class Camera : Camera3D
 
         Quaternion shipRotation = shipController.GlobalTransform.Basis.GetRotationQuaternion();
         Quaternion cameraRotation = GlobalTransform.Basis.GetRotationQuaternion();
+
+
         Quaternion slerpRotation = cameraRotation.Slerp(shipRotation, camera_lerp_speed * (float)delta);
 
         Basis slerpBasis = new Basis(slerpRotation);
         GlobalTransform = new Transform3D(slerpBasis, GlobalPosition);
  
 
-        //GD.Print("Camera Rotation: " + Rotation  + " Ship Rotation: " + shipController.Rotation);
-        //GD.Print("Camera Position: " + GlobalPosition + "Ship Position: " + shipController.GlobalPosition);
+        GD.Print("Camera Rotation: " + Rotation  + " Ship Rotation: " + shipController.Rotation);
+        GD.Print("Camera Position: " + GlobalPosition + "Ship Position: " + shipController.GlobalPosition);
     }
 }

@@ -24,10 +24,11 @@ public partial class ShipController : RigidBody3D
 	public Quaternion roll = new Quaternion();
  
 
-	private float pitch_input = 0;
-	private float yaw_input = 0;
-	private float roll_input = 0;
+	public float pitch_input = 0;
+	public float yaw_input = 0;
+	public float roll_input = 0;
 	Vector3 velocity;
+
 
 	public override void _Process(double delta)
 	{
@@ -48,9 +49,9 @@ public partial class ShipController : RigidBody3D
 		}
 
 
-		pitch_input = Input.GetAxis("pitch_down", "pitch_up");
+		//pitch_input = Input.GetAxis("pitch_down", "pitch_up");
 		yaw_input = Input.GetAxis("yaw_right", "yaw_left");
-		roll_input = Input.GetAxis("roll_right", "roll_left");
+		//roll_input = Input.GetAxis("roll_right", "roll_left");
 
 
 		pitch = new Quaternion(Vector3.Right, pitch_input * pitch_speed * (float)delta);
