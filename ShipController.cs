@@ -50,7 +50,7 @@ public partial class ShipController : RigidBody3D
 
 
 		//pitch_input = Input.GetAxis("pitch_down", "pitch_up");
-		yaw_input = Input.GetAxis("yaw_right", "yaw_left");
+		//yaw_input = Input.GetAxis("yaw_right", "yaw_left");
 		//roll_input = Input.GetAxis("roll_right", "roll_left");
 
 

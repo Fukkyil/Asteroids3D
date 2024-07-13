@@ -9,7 +9,7 @@ public partial class Camera : Camera3D
     [Export]
     public bool invert_x;
     [Export]
-    public float mouse_sensitivity = 0.005f;
+    public float mouse_sensitivity = 0.05f;
     [Export]
     public float max_fov = 90;
     [Export]
@@ -30,6 +30,7 @@ public partial class Camera : Camera3D
 
     public override void _Ready()
     {
+        Input.MouseMode = Input.MouseModeEnum.Captured;
         shipController = GetNode<ShipController>("../Spaceship");
 
         
@@ -55,8 +56,9 @@ public partial class Camera : Camera3D
         {
             if (mouseEvent.Relative.X != 0)
             {
-                shipController.roll_input = dirX * mouseEvent.Relative.X * mouse_sensitivity;
-                //Yaw
+                shipController.roll_input = -dirX * mouseEvent.Relative.X * mouse_sensitivity;
+                //roll
+                shipController.yaw_input = dirX * mouseEvent.Relative.X * mouse_sensitivity;
             }
 
             if (mouseEvent.Relative.Y != 0)
