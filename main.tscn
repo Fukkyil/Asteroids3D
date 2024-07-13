@@ -25,3 +25,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
 current = true
 fov = 80.1
 script = ExtResource("3_822p4")
+camera_lerp_speed = 5.0

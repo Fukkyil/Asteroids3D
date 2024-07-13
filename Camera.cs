@@ -94,7 +94,7 @@ public partial class Camera : Camera3D
         GlobalTransform = new Transform3D(slerpBasis, GlobalPosition);
  
 
-        GD.Print("Camera Rotation: " + Rotation  + " Ship Rotation: " + shipController.Rotation);
+        //GD.Print("Camera Rotation: " + Rotation  + " Ship Rotation: " + shipController.Rotation);
         //GD.Print("Camera Position: " + GlobalPosition + "Ship Position: " + shipController.GlobalPosition);
     }
 }
