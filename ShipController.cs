@@ -32,6 +32,7 @@ public partial class ShipController : RigidBody3D
 
 	public override void _Process(double delta)
 	{
+
 		if(Input.IsActionPressed("throttle_up")){
 			forward_speed = (float)Mathf.Lerp(forward_speed, max_speed, acceleration * delta);
             isthrustringforward = true;
@@ -51,7 +52,7 @@ public partial class ShipController : RigidBody3D
 
 		//pitch_input = Input.GetAxis("pitch_down", "pitch_up");
 		//yaw_input = Input.GetAxis("yaw_right", "yaw_left");
-		//roll_input = Input.GetAxis("roll_right", "roll_left");
+		roll_input = Input.GetAxis("roll_right", "roll_left");
 
 
 		pitch = new Quaternion(Vector3.Right, pitch_input * pitch_speed * (float)delta);
@@ -67,6 +68,9 @@ public partial class ShipController : RigidBody3D
 	   currentTransform.Basis = new Basis(currentRotation);
 	   GlobalTransform = currentTransform;
 
+		yaw_input = 0;
+		pitch_input = 0;
+		roll_input = 0;
 	}
 
 	public override void _PhysicsProcess(double delta)
