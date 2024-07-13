@@ -19,20 +19,18 @@ public partial class Camera : Camera3D
     [Export]
     public float fov_multiplier = 1f;
     [Export]
-    public float fov_larp_speed = 0.05f;
+    public float fov_lerp_speed = 0.05f;
+    [Export]
+    public float camera_lerp_speed = 20f;
 
     private Vector3 offset = new Vector3(0, 5, 15);
-    private Node3D innerGimbal;
-    private Node3D outerGimbal;
     private ShipController shipController;
     private int dirY;
     private int dirX;
 
     public override void _Ready()
     {
-        shipController = GetNode<ShipController>("../../../Spaceship");
-        innerGimbal = GetNode<Node3D>("../");
-        outerGimbal = GetNode<Node3D>("../../");
+        shipController = GetNode<ShipController>("../Spaceship");
 
         
         if(shipController != null){
@@ -57,13 +55,13 @@ public partial class Camera : Camera3D
         {
             if (mouseEvent.Relative.X != 0)
             {
-                outerGimbal.RotateObjectLocal(Vector3.Up, dirX * mouseEvent.Relative.X * mouse_sensitivity);
+                //RotateObjectLocal(Vector3.Up, dirX * mouseEvent.Relative.X * mouse_sensitivity);
                 //Yaw
             }
 
             if (mouseEvent.Relative.Y != 0)
             {
-                innerGimbal.RotateObjectLocal(Vector3.Right, dirY * mouseEvent.Relative.Y * mouse_sensitivity);
+                //RotateObjectLocal(Vector3.Right, dirY * mouseEvent.Relative.Y * mouse_sensitivity);
                 //Pitch
             }
 
@@ -75,26 +73,28 @@ public partial class Camera : Camera3D
 
         //FOV Adjustments
         if(shipController.isthrustringforward){
-            Fov = Mathf.Lerp(Fov, max_fov * fov_multiplier, (shipController.forward_speed * fov_larp_speed) * (float)delta);
+            Fov = Mathf.Lerp(Fov, max_fov * fov_multiplier, (shipController.forward_speed * fov_lerp_speed) * (float)delta);
         }
         else if(shipController.isthrustingbackward){
-            Fov = Mathf.Lerp(Fov, min_fov * fov_multiplier, (shipController.forward_speed * fov_larp_speed) * (float)delta);
+            Fov = Mathf.Lerp(Fov, min_fov * fov_multiplier, (shipController.forward_speed * fov_lerp_speed) * (float)delta);
         }
         else{
-            Fov = Mathf.Lerp(Fov, default_fov * fov_multiplier, (shipController.forward_speed * fov_larp_speed) * (float)delta);
+            Fov = Mathf.Lerp(Fov, default_fov * fov_multiplier, (shipController.forward_speed * fov_lerp_speed) * (float)delta);
         }
         //GD.Print("Fov: " + Fov);
 
-        float shipYaw = shipController.GlobalTransform.Basis.GetEuler().Y;
-        outerGimbal.Rotation = new Vector3(outerGimbal.Rotation.X, shipYaw, outerGimbal.Rotation.Z);
-
-        float shipPitch = shipController.GlobalTransform.Basis.GetEuler().X;
-        innerGimbal.Rotation = new Vector3(shipPitch, innerGimbal.Rotation.Y, innerGimbal.Rotation.Z);
-
         Vector3 rotatedOffset = shipController.GlobalTransform.Basis * offset;
-        outerGimbal.GlobalPosition = shipController.GlobalPosition + rotatedOffset;
-        
+        GlobalPosition = shipController.GlobalPosition + rotatedOffset; 
 
-        GD.Print("Camera Rotation: " + Rotation + " Outer Gimbal Rotation: " + outerGimbal.Rotation + " Inner Gimbal Rotation: " + innerGimbal.Rotation + " Ship Rotation: " + shipController.Rotation);
+        Quaternion shipRotation = shipController.GlobalTransform.Basis.GetRotationQuaternion();
+        Quaternion cameraRotation = GlobalTransform.Basis.GetRotationQuaternion();
+        Quaternion slerpRotation = cameraRotation.Slerp(shipRotation, camera_lerp_speed * (float)delta);
+
+        Basis slerpBasis = new Basis(slerpRotation);
+        GlobalTransform = new Transform3D(slerpBasis, GlobalPosition);
+ 
+
+        GD.Print("Camera Rotation: " + Rotation  + " Ship Rotation: " + shipController.Rotation);
+        //GD.Print("Camera Position: " + GlobalPosition + "Ship Position: " + shipController.GlobalPosition);
     }
 }
