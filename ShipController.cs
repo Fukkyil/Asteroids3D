@@ -19,6 +19,9 @@ public partial class ShipController : RigidBody3D
 	public float forward_speed = 30;
     public bool isthrustringforward;
     public bool isthrustingbackward;
+	public Quaternion pitch = new Quaternion();
+	public Quaternion yaw = new Quaternion();
+	public Quaternion roll = new Quaternion();
  
 
 	private float pitch_input = 0;
@@ -50,9 +53,9 @@ public partial class ShipController : RigidBody3D
 		roll_input = Input.GetAxis("roll_right", "roll_left");
 
 
-		Quaternion pitch = new Quaternion(Vector3.Right, pitch_input * pitch_speed * (float)delta);
-		Quaternion yaw = new Quaternion(Vector3.Up, yaw_input * yaw_speed * (float)delta);
-		Quaternion roll = new Quaternion(Vector3.Forward, roll_input * roll_speed * (float)delta);
+		pitch = new Quaternion(Vector3.Right, pitch_input * pitch_speed * (float)delta);
+		yaw = new Quaternion(Vector3.Up, yaw_input * yaw_speed * (float)delta);
+		roll = new Quaternion(Vector3.Forward, roll_input * roll_speed * (float)delta);
 
 		Transform3D currentTransform = GlobalTransform;
 		Quaternion currentRotation = new Quaternion(currentTransform.Basis);

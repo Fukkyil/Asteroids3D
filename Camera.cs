@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Net.Http.Headers;
 
-public partial class Camera : Node3D
+public partial class Camera : Camera3D
 {
     [Export]
     public bool invert_y;
@@ -23,19 +23,18 @@ public partial class Camera : Node3D
 
     private Vector3 offset = new Vector3(0, 5, 15);
     private Node3D innerGimbal;
-    private Camera3D camera;
+    private Node3D outerGimbal;
     private ShipController shipController;
     private int dirY;
     private int dirX;
 
     public override void _Ready()
     {
-        innerGimbal = GetNode<Node3D>("InnerGimbal");
-        shipController = GetNode<ShipController>("../Spaceship");
-        camera = GetNode<Camera3D>("InnerGimbal/Camera3D");
+        shipController = GetNode<ShipController>("../../../Spaceship");
+        innerGimbal = GetNode<Node3D>("../");
+        outerGimbal = GetNode<Node3D>("../../");
 
-        camera.GlobalPosition = offset + GlobalPosition;
-
+        
         if(shipController != null){
             GD.Print("Shipcontroller found!");
             GD.Print(shipController);
@@ -44,20 +43,12 @@ public partial class Camera : Node3D
             GD.Print("Shipcontroller not found!");
         }
 
-        if(camera != null){
-            GD.Print("Camera Found!");
-            GD.Print(camera);
-        }
-        else{
-            GD.Print("Camera not found!");
-        }
 
         //Mouse Inversion setup
         //Interesting way of making an if statement I saw in a blog: var x = statement ? true : false;
         dirY = invert_y ? dirY = 1 : dirY = -1;
         dirX = invert_x ? dirX = 1 : dirX = -1;
     }
-
 
     public override void _UnhandledInput(InputEvent @event)
 {
@@ -66,13 +57,14 @@ public partial class Camera : Node3D
         {
             if (mouseEvent.Relative.X != 0)
             {
-                RotateObjectLocal(Vector3.Up, dirX * mouseEvent.Relative.X * mouse_sensitivity);
+                outerGimbal.RotateObjectLocal(Vector3.Up, dirX * mouseEvent.Relative.X * mouse_sensitivity);
+                //Yaw
             }
 
             if (mouseEvent.Relative.Y != 0)
             {
                 innerGimbal.RotateObjectLocal(Vector3.Right, dirY * mouseEvent.Relative.Y * mouse_sensitivity);
-                GD.Print(innerGimbal.Rotation + " Ship: " + shipController.Rotation);
+                //Pitch
             }
 
         }
@@ -83,19 +75,26 @@ public partial class Camera : Node3D
 
         //FOV Adjustments
         if(shipController.isthrustringforward){
-            camera.Fov = Mathf.Lerp(camera.Fov, max_fov * fov_multiplier, (shipController.forward_speed * fov_larp_speed) * (float)delta);
+            Fov = Mathf.Lerp(Fov, max_fov * fov_multiplier, (shipController.forward_speed * fov_larp_speed) * (float)delta);
         }
         else if(shipController.isthrustingbackward){
-            camera.Fov = Mathf.Lerp(camera.Fov, min_fov * fov_multiplier, (shipController.forward_speed * fov_larp_speed) * (float)delta);
+            Fov = Mathf.Lerp(Fov, min_fov * fov_multiplier, (shipController.forward_speed * fov_larp_speed) * (float)delta);
         }
         else{
-            camera.Fov = Mathf.Lerp(camera.Fov, default_fov * fov_multiplier, (shipController.forward_speed * fov_larp_speed) * (float)delta);
+            Fov = Mathf.Lerp(Fov, default_fov * fov_multiplier, (shipController.forward_speed * fov_larp_speed) * (float)delta);
         }
-        //GD.Print("Fov: " + camera.Fov);
+        //GD.Print("Fov: " + Fov);
 
-        GlobalPosition = shipController.GlobalPosition;
+        float shipYaw = shipController.GlobalTransform.Basis.GetEuler().Y;
+        outerGimbal.Rotation = new Vector3(outerGimbal.Rotation.X, shipYaw, outerGimbal.Rotation.Z);
 
+        float shipPitch = shipController.GlobalTransform.Basis.GetEuler().X;
+        innerGimbal.Rotation = new Vector3(shipPitch, innerGimbal.Rotation.Y, innerGimbal.Rotation.Z);
+
+        Vector3 rotatedOffset = shipController.GlobalTransform.Basis * offset;
+        outerGimbal.GlobalPosition = shipController.GlobalPosition + rotatedOffset;
         
-        
+
+        GD.Print("Camera Rotation: " + Rotation + " Outer Gimbal Rotation: " + outerGimbal.Rotation + " Inner Gimbal Rotation: " + innerGimbal.Rotation + " Ship Rotation: " + shipController.Rotation);
     }
 }
