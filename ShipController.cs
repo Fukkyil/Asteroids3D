@@ -13,6 +13,14 @@ public partial class ShipController : RigidBody3D
 	[Export]
 	public float yaw_speed = 1.25f;
 	public float forward_speed = 0;
+
+	public enum thrustState{
+		Forward,
+		Backwards,
+		Idle,
+	};
+	public thrustState currentThrustState = thrustState.Idle;
+
     public bool isthrustringforward;
     public bool isthrustingbackward;
 	public Quaternion pitch = new Quaternion();
@@ -31,18 +39,15 @@ public partial class ShipController : RigidBody3D
 
 		if(Input.IsActionPressed("throttle_up")){
 			forward_speed = acceleration * (float)delta;
-            isthrustringforward = true;
-            isthrustingbackward = false;
+			currentThrustState = thrustState.Forward;
 		}
 		else if(Input.IsActionPressed("throttle_down")){
-			forward_speed = acceleration * (float)delta;
-            isthrustingbackward = true;
-            isthrustringforward = false;
+			forward_speed = -acceleration * (float)delta;
+			currentThrustState = thrustState.Backwards;
 		}
 		else{
 			forward_speed = 0;
-            isthrustingbackward = false;
-            isthrustringforward = false;
+			currentThrustState = thrustState.Idle;
 		}
 
 
@@ -81,6 +86,7 @@ public partial class ShipController : RigidBody3D
 
 
 	   MoveAndCollide(velocity);
+	   
 	}
 
 }

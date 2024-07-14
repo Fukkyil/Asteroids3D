@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://ds8be5rkywnqh"]
+
+[ext_resource type="Script" path="res://ShipController.cs" id="1_y3pli"]
+[ext_resource type="ArrayMesh" uid="uid://eqw6yyp5baku" path="res://Models/Ships/Viper.obj" id="2_so5dp"]
+[ext_resource type="Script" path="res://Camera.cs" id="3_6llcp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c63fa"]
+size = Vector3(48, 16, 48)
+
+[node name="Spaceship" type="RigidBody3D"]
+gravity_scale = 0.0
+can_sleep = false
+script = ExtResource("1_y3pli")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = ExtResource("2_so5dp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
+shape = SubResource("BoxShape3D_c63fa")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0653114, 1.38972, 11.1074)
+current = true
+fov = 80.1
+script = ExtResource("3_6llcp")
+offset = Vector3(0, 50, 85)

@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 
 public partial class Camera : Camera3D
@@ -19,7 +18,7 @@ public partial class Camera : Camera3D
     [Export]
     public float fov_multiplier = 1f;
     [Export]
-    public float fov_lerp_speed = 0.05f;
+    public float fov_lerp_speed = 10f;
     [Export]
     public float camera_lerp_speed = 100f;
     [Export]
@@ -37,9 +36,8 @@ public partial class Camera : Camera3D
     public override void _Ready()
     {
         Input.MouseMode = Input.MouseModeEnum.Captured;
-        shipController = GetNode<ShipController>("../Spaceship");
+        shipController = GetNode<ShipController>("../");
         viewport = GetWindow().Size;
-
         
         if(shipController != null){
             GD.Print("Shipcontroller found!");
@@ -95,15 +93,16 @@ public partial class Camera : Camera3D
 
 
         //FOV Adjustments
-        if(shipController.isthrustringforward){
+        if(shipController.currentThrustState is ShipController.thrustState.Forward){
             Fov = Mathf.Lerp(Fov, max_fov * fov_multiplier, (shipController.forward_speed * fov_lerp_speed) * (float)delta);
         }
-        else if(shipController.isthrustingbackward){
+        else if(shipController.currentThrustState is ShipController.thrustState.Backwards){
             Fov = Mathf.Lerp(Fov, min_fov * fov_multiplier, (shipController.forward_speed * fov_lerp_speed) * (float)delta);
         }
         else{
             Fov = Mathf.Lerp(Fov, default_fov * fov_multiplier, (shipController.forward_speed * fov_lerp_speed) * (float)delta);
         }
+        GD.Print("Current FOV:" + Fov);
 
 
         Vector3 rotatedOffset = shipController.GlobalTransform.Basis * offset;
