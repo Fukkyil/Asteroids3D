@@ -69,14 +69,12 @@ public partial class Camera : Camera3D
                 //shipController.roll_input = -dirX * mouseEvent.Relative.X * mouse_sensitivity;
                 //roll
                 shipController.yaw_input = dirX * deltaX * mouse_sensitivity;
-                GD.Print(mouseEvent.Relative.X);
                 //yaw
             }
 
             if (mouseEvent.Relative.Y != 0)
             {
                 shipController.pitch_input = dirY * deltaY * mouse_sensitivity;
-                GD.Print(mouseEvent.Relative.Y);
                 //Pitch
             }
 
@@ -106,7 +104,7 @@ public partial class Camera : Camera3D
         else{
             Fov = Mathf.Lerp(Fov, default_fov * fov_multiplier, (shipController.forward_speed * fov_lerp_speed) * (float)delta);
         }
-        //GD.Print("Fov: " + Fov);
+
 
         Vector3 rotatedOffset = shipController.GlobalTransform.Basis * offset;
         GlobalPosition = shipController.GlobalPosition + rotatedOffset;
@@ -122,8 +120,8 @@ public partial class Camera : Camera3D
         Basis slerpBasis = new Basis(slerpRotation);
         GlobalTransform = new Transform3D(slerpBasis, GlobalPosition);
  
-        GD.Print("Yaw: " + shipController.yaw_input + " Pitch: " + shipController.pitch_input + " Roll: " + shipController.roll_input);
-        GD.Print("Camera Rotation: " + Rotation  + " Ship Rotation: " + shipController.Rotation);
+        //GD.Print("Yaw: " + shipController.yaw_input + " Pitch: " + shipController.pitch_input + " Roll: " + shipController.roll_input);
+        //GD.Print("Camera Rotation: " + Rotation  + " Ship Rotation: " + shipController.Rotation);
         //GD.Print("Camera Position: " + GlobalPosition + "Ship Position: " + shipController.GlobalPosition);
     }
 }

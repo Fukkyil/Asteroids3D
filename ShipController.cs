@@ -3,11 +3,7 @@ using Godot;
 public partial class ShipController : RigidBody3D
 {
 	[Export]
-	public float max_speed = 50;
-	[Export]
-	public float natural_speed = 25;
-	[Export]
-	public float brake_speed = 5;
+	public float max_speed = 7;
 	[Export]
 	public float acceleration = 0.6f;
 	[Export]
@@ -16,7 +12,7 @@ public partial class ShipController : RigidBody3D
 	public float roll_speed = 2.5f;
 	[Export]
 	public float yaw_speed = 1.25f;
-	public float forward_speed = 30;
+	public float forward_speed = 0;
     public bool isthrustringforward;
     public bool isthrustingbackward;
 	public Quaternion pitch = new Quaternion();
@@ -34,31 +30,30 @@ public partial class ShipController : RigidBody3D
 	{
 
 		if(Input.IsActionPressed("throttle_up")){
-			forward_speed = (float)Mathf.Lerp(forward_speed, max_speed, acceleration * delta);
+			forward_speed = acceleration * (float)delta;
             isthrustringforward = true;
             isthrustingbackward = false;
 		}
 		else if(Input.IsActionPressed("throttle_down")){
-			forward_speed = (float)Mathf.Lerp(forward_speed, brake_speed, acceleration * delta);
+			forward_speed = acceleration * (float)delta;
             isthrustingbackward = true;
             isthrustringforward = false;
 		}
 		else{
-			forward_speed = (float)Mathf.Lerp(forward_speed, natural_speed, acceleration * delta);
+			forward_speed = 0;
             isthrustingbackward = false;
             isthrustringforward = false;
 		}
 
 
-		//pitch_input = Input.GetAxis("pitch_down", "pitch_up");
-		//yaw_input = Input.GetAxis("yaw_right", "yaw_left");
 		roll_input = Input.GetAxis("roll_right", "roll_left");
 
 
 		pitch = new Quaternion(Vector3.Right, pitch_input * pitch_speed * (float)delta);
 		yaw = new Quaternion(Vector3.Up, yaw_input * yaw_speed * (float)delta);
 		roll = new Quaternion(Vector3.Forward, roll_input * roll_speed * (float)delta);
-
+		
+		
 		Transform3D currentTransform = GlobalTransform;
 		Quaternion currentRotation = new Quaternion(currentTransform.Basis);
 	   
@@ -73,18 +68,19 @@ public partial class ShipController : RigidBody3D
 		roll_input = 0;
 	}
 
-	public override void _PhysicsProcess(double delta)
+
+    public override void _PhysicsProcess(double delta)
 	{
 	   Vector3 forward = -GlobalTransform.Basis.Z;
-	   velocity = forward * forward_speed;
-	   
-	   MoveAndCollide(velocity * (float)delta);
-	   
+	   velocity = velocity + forward * forward_speed;
 
-	   //GD.Print("Position: " + GlobalPosition + " | speed: " + forward_speed);
-	   //GD.Print("Rotation: " + GlobalRotation);
-	   //GD.Print("Roll Input: " + roll_input + " Pitch Input: " + pitch_input + " Yaw Input: " + yaw_input);
-	   
+	   if(velocity.Length() > max_speed){
+		velocity = velocity.Normalized() * max_speed;
+	   }
+	   GD.Print("Current speed:" + velocity.Length());
+
+
+	   MoveAndCollide(velocity);
 	}
 
 }
