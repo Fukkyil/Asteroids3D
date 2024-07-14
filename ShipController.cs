@@ -13,7 +13,7 @@ public partial class ShipController : RigidBody3D
 	[Export]
 	public float pitch_speed = 1.5f;
 	[Export]
-	public float roll_speed = 1.9f;
+	public float roll_speed = 2.5f;
 	[Export]
 	public float yaw_speed = 1.25f;
 	public float forward_speed = 30;

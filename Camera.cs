@@ -23,9 +23,9 @@ public partial class Camera : Camera3D
     [Export]
     public float camera_lerp_speed = 100f;
     [Export]
-    public float maximum_mouse_rotation = 25;
+    public float maximum_mouse_rotation = 40;
     [Export]
-    public Vector3 offset = new Vector3(0, 30,85);
+    public Vector3 offset = new Vector3(0, 30, 85);
 
 
     private ShipController shipController;
@@ -123,7 +123,7 @@ public partial class Camera : Camera3D
         GlobalTransform = new Transform3D(slerpBasis, GlobalPosition);
  
         GD.Print("Yaw: " + shipController.yaw_input + " Pitch: " + shipController.pitch_input + " Roll: " + shipController.roll_input);
-        //GD.Print("Camera Rotation: " + Rotation  + " Ship Rotation: " + shipController.Rotation);
+        GD.Print("Camera Rotation: " + Rotation  + " Ship Rotation: " + shipController.Rotation);
         //GD.Print("Camera Position: " + GlobalPosition + "Ship Position: " + shipController.GlobalPosition);
     }
 }

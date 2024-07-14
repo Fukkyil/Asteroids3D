@@ -6,6 +6,7 @@
 [ext_resource type="ArrayMesh" uid="uid://crh3ynletrpni" path="res://Models/Objects/untitled.obj" id="4_utqqf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s6nyy"]
+size = Vector3(48, 16, 48)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wwm3e"]
 
@@ -16,19 +17,18 @@ gravity_scale = 0.0
 script = ExtResource("1_gx3vp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Spaceship"]
-transform = Transform3D(-0.5, 0, -4.37114e-08, 0, 0.5, 0, 4.37114e-08, 0, -0.5, 0, 0, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = ExtResource("2_fyflb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Spaceship"]
-transform = Transform3D(47.2408, 0, 0, 0, 16.0075, 0, 0, 0, 48.5559, 0, 0, -12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
 shape = SubResource("BoxShape3D_s6nyy")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0653114, 1.38972, 11.1074)
 current = true
 fov = 80.1
 script = ExtResource("3_822p4")
-offset = Vector3(0, 40, 85)
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.3815, 47.0257, 491.576)
