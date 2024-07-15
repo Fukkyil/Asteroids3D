@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4m8i8cr5ud7i"]
+
+[ext_resource type="Script" path="res://Scripts/projectile.cs" id="1_40wfo"]
+[ext_resource type="ArrayMesh" uid="uid://bfpphpdo44yxo" path="res://Models/Objects/Projectile.obj" id="2_uhnwf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q4c4u"]
+size = Vector3(0.4, 10, 0.4)
+
+[node name="Projectile" type="Area3D"]
+script = ExtResource("1_40wfo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+mesh = ExtResource("2_uhnwf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+shape = SubResource("BoxShape3D_q4c4u")

@@ -18,11 +18,11 @@ public partial class Camera : Camera3D
     [Export]
     public float fov_multiplier = 1f;
     [Export]
-    public float fov_lerp_speed = 10f;
+    public float fov_lerp_speed = 0.1f;
     [Export]
     public float camera_lerp_speed = 100f;
     [Export]
-    public float maximum_mouse_rotation = 40;
+    public float maximum_mouse_rotation = 90;
     [Export]
     public Vector3 offset = new Vector3(0, 30, 85);
 
@@ -64,8 +64,6 @@ public partial class Camera : Camera3D
 
             if (mouseEvent.Relative.X != 0)
             {
-                //shipController.roll_input = -dirX * mouseEvent.Relative.X * mouse_sensitivity;
-                //roll
                 shipController.yaw_input = dirX * deltaX * mouse_sensitivity;
                 //yaw
             }
@@ -94,13 +92,13 @@ public partial class Camera : Camera3D
 
         //FOV Adjustments
         if(shipController.currentThrustState is ShipController.thrustState.Forward){
-            Fov = Mathf.Lerp(Fov, max_fov * fov_multiplier, (shipController.forward_speed * fov_lerp_speed) * (float)delta);
+            Fov = Mathf.Lerp(Fov, max_fov * fov_multiplier, (shipController.velocity.Length() * fov_lerp_speed) * (float)delta);
         }
         else if(shipController.currentThrustState is ShipController.thrustState.Backwards){
-            Fov = Mathf.Lerp(Fov, min_fov * fov_multiplier, (shipController.forward_speed * fov_lerp_speed) * (float)delta);
+            Fov = Mathf.Lerp(Fov, min_fov * fov_multiplier, (shipController.velocity.Length() * fov_lerp_speed) * (float)delta);
         }
         else{
-            Fov = Mathf.Lerp(Fov, default_fov * fov_multiplier, (shipController.forward_speed * fov_lerp_speed) * (float)delta);
+            Fov = Mathf.Lerp(Fov, default_fov * fov_multiplier, (shipController.velocity.Length() * fov_lerp_speed) * (float)delta);
         }
         GD.Print("Current FOV:" + Fov);
 
@@ -118,9 +116,5 @@ public partial class Camera : Camera3D
 
         Basis slerpBasis = new Basis(slerpRotation);
         GlobalTransform = new Transform3D(slerpBasis, GlobalPosition);
- 
-        //GD.Print("Yaw: " + shipController.yaw_input + " Pitch: " + shipController.pitch_input + " Roll: " + shipController.roll_input);
-        //GD.Print("Camera Rotation: " + Rotation  + " Ship Rotation: " + shipController.Rotation);
-        //GD.Print("Camera Position: " + GlobalPosition + "Ship Position: " + shipController.GlobalPosition);
     }
 }

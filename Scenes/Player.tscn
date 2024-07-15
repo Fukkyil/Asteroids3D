@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://ds8be5rkywnqh"]
 
-[ext_resource type="Script" path="res://ShipController.cs" id="1_y3pli"]
+[ext_resource type="Script" path="res://Scripts/ShipController.cs" id="1_y3pli"]
 [ext_resource type="ArrayMesh" uid="uid://eqw6yyp5baku" path="res://Models/Ships/Viper.obj" id="2_so5dp"]
-[ext_resource type="Script" path="res://Camera.cs" id="3_6llcp"]
+[ext_resource type="Script" path="res://Scripts/Camera.cs" id="3_6llcp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c63fa"]
 size = Vector3(48, 16, 48)
@@ -26,3 +26,8 @@ current = true
 fov = 80.1
 script = ExtResource("3_6llcp")
 offset = Vector3(0, 50, 85)
+
+[node name="MainGun" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, -15)
+
+[node name="Node3D" type="Node3D" parent="."]
