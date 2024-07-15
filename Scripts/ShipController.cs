@@ -13,8 +13,12 @@ public partial class ShipController : RigidBody3D
 	[Export]
 	public float yaw_speed = 1f;
 	[Export]
-	public PackedScene bulletScene = (PackedScene)ResourceLoader.Load("res://Scenes/Projectiles.tscn");
-	public float forward_speed = 0;
+	public float shotCooldown = 5f;
+
+	private Timer shootTimer;
+
+	private PackedScene bulletScene = (PackedScene)ResourceLoader.Load("res://Scenes/Projectiles.tscn");
+	private float forward_speed = 0;
 
 	public enum thrustState{
 		Forward,
@@ -22,9 +26,9 @@ public partial class ShipController : RigidBody3D
 		Idle,
 	};
 	public thrustState currentThrustState = thrustState.Idle;
-	public Quaternion pitch = new Quaternion();
-	public Quaternion yaw = new Quaternion();
-	public Quaternion roll = new Quaternion();
+	private Quaternion pitch = new Quaternion();
+	private Quaternion yaw = new Quaternion();
+	private Quaternion roll = new Quaternion();
  
 
 	public float pitch_input = 0;
@@ -50,10 +54,7 @@ public partial class ShipController : RigidBody3D
 		}
 
 		if(Input.IsActionPressed("mouse_left")){
-			var bullet = (projectile)bulletScene.Instantiate();
-			Owner.AddChild(bullet);
-			bullet.GlobalPosition = GetNode<Node3D>("MainGun").GlobalPosition;
-			bullet.rotation = -GlobalTransform.Basis.Z;
+			Shoot();
 		}
 
 
@@ -70,7 +71,7 @@ public partial class ShipController : RigidBody3D
 	   if(velocity.Length() > max_speed){
 		velocity = velocity.Normalized() * max_speed;
 	   }
-	   GD.Print("Current speed:" + velocity.Length());
+	   //GD.Print("Current speed:" + velocity.Length());
 
 
 	   MoveAndCollide(velocity);
@@ -98,6 +99,14 @@ public partial class ShipController : RigidBody3D
 		yaw_input = 0;
 		pitch_input = 0;
 		roll_input = 0;
+	}
+	public async void Shoot(){
+		var bullet = (projectile)bulletScene.Instantiate();
+		Owner.AddChild(bullet);
+		bullet.GlobalPosition = GetNode<Node3D>("MainGun").GlobalPosition;
+		bullet.rotation = -GlobalTransform.Basis.Z;
+
+		await ToSignal(GetTree().CreateTimer(shotCooldown), SceneTreeTimer.SignalName.Timeout);
 	}
 
 }

@@ -100,7 +100,7 @@ public partial class Camera : Camera3D
         else{
             Fov = Mathf.Lerp(Fov, default_fov * fov_multiplier, (shipController.velocity.Length() * fov_lerp_speed) * (float)delta);
         }
-        GD.Print("Current FOV:" + Fov);
+        //GD.Print("Current FOV:" + Fov);
 
 
         Vector3 rotatedOffset = shipController.GlobalTransform.Basis * offset;
