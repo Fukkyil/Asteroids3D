@@ -6,11 +6,15 @@ public partial class projectile : Area3D
     [Signal]
     public delegate void hitEventHandler(Vector3 position);
     [Export]
-    public float muzzle_speed = 250f;
+    public float muzzle_speed = 150f;
     [Export]
     public int playerCollisionLayer = 1;
     [Export]
     public int projectileCollisionLayer = 5;
+    [Export]
+    public float timeToDespawn = 1;
+
+    private Timer despawnTimer;
     public Vector3 rotation = Vector3.Zero;
     Vector3 velocity = Vector3.Zero;
 
@@ -22,7 +26,7 @@ public partial class projectile : Area3D
     }
 
     public override void _Process(double delta){
-       velocity +=  rotation * muzzle_speed * (float)delta;
+       velocity =  rotation.Normalized() * muzzle_speed;
        GlobalTransform = new Transform3D(GlobalTransform.Basis, GlobalTransform.Origin + velocity * (float)delta);
     }
 
@@ -33,9 +37,12 @@ public partial class projectile : Area3D
     }
 
     private async void StartTimer(){
-        await ToSignal(GetTree().CreateTimer(1.0), SceneTreeTimer.SignalName.Timeout);
+        await ToSignal(GetTree().CreateTimer(0.5), SceneTreeTimer.SignalName.Timeout);
         SetCollisionMaskValue(playerCollisionLayer, true);
     }
-    
+    private void _on_timer_timeout(){
+        QueueFree();
+        GD.Print("Despawned due to timeout!");
+    }
 
 }

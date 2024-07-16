@@ -28,6 +28,6 @@ script = ExtResource("3_6llcp")
 offset = Vector3(0, 50, 85)
 
 [node name="MainGun" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7, -14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.3, -14)
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="SecondaryGun" type="Node3D" parent="."]

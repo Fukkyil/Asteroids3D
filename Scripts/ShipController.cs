@@ -13,7 +13,7 @@ public partial class ShipController : RigidBody3D
 	[Export]
 	public float yaw_speed = 1f;
 	[Export]
-	public float shotCooldown = 5f;
+	public float shotCooldown = 0.2f;
 
 	private Timer shootTimer;
 
@@ -36,8 +36,14 @@ public partial class ShipController : RigidBody3D
 	public float roll_input = 0;
 	public Vector3 velocity;
 
+    public override void _Ready()
+    {
+        shootTimer = new Timer();
+		shootTimer.OneShot = true;
+		AddChild(shootTimer);
+    }
 
-	public override void _Process(double delta)
+    public override void _Process(double delta)
 	{
 
 		if(Input.IsActionPressed("throttle_up")){
@@ -53,7 +59,7 @@ public partial class ShipController : RigidBody3D
 			currentThrustState = thrustState.Idle;
 		}
 
-		if(Input.IsActionPressed("mouse_left")){
+		if(Input.IsActionPressed("mouse_left") && shootTimer.IsStopped()){
 			Shoot();
 		}
 
@@ -75,7 +81,6 @@ public partial class ShipController : RigidBody3D
 
 
 	   MoveAndCollide(velocity);
-	   
 	}
 
 
@@ -100,13 +105,15 @@ public partial class ShipController : RigidBody3D
 		pitch_input = 0;
 		roll_input = 0;
 	}
-	public async void Shoot(){
+
+	public void Shoot(){
 		var bullet = (projectile)bulletScene.Instantiate();
 		Owner.AddChild(bullet);
 		bullet.GlobalPosition = GetNode<Node3D>("MainGun").GlobalPosition;
-		bullet.rotation = -GlobalTransform.Basis.Z;
+		bullet.GlobalRotation = GlobalRotation;
+		bullet.rotation = -GetNode<Node3D>("MainGun").GlobalTransform.Basis.Z;
 
-		await ToSignal(GetTree().CreateTimer(shotCooldown), SceneTreeTimer.SignalName.Timeout);
+		shootTimer.Start(shotCooldown);
 	}
 
 }
