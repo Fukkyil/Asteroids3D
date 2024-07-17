@@ -26,7 +26,7 @@ public partial class Camera : Camera3D
     [Export]
     public Vector3 offset = new Vector3(0, 30, 85);
 
-
+    public Vector2 adsas;
     private ShipController shipController;
     private int dirY;
     private int dirX;
@@ -35,6 +35,8 @@ public partial class Camera : Camera3D
 
     public override void _Ready()
     {
+        adsas = GetWindow().Size;
+
         Input.MouseMode = Input.MouseModeEnum.Captured;
         shipController = GetNode<ShipController>("../");
         viewport = GetWindow().Size;

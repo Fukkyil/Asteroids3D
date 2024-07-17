@@ -107,7 +107,7 @@ public partial class ShipController : RigidBody3D
 	}
 
 	public void Shoot(){
-		var bullet = (projectile)bulletScene.Instantiate();
+		var bullet = (Projectile)bulletScene.Instantiate();
 		Owner.AddChild(bullet);
 		bullet.GlobalPosition = GetNode<Node3D>("MainGun").GlobalPosition;
 		bullet.GlobalRotation = GlobalRotation;
