@@ -40,12 +40,12 @@ public override void _Ready()
 public void takeDamage(int damage, int splitFactor, Vector3 hitLocation, Basis hitRotation){
     currentHealth -= damage;
     if(currentHealth <= 0){
-        splitAsteroid(splitFactor, hitLocation, hitRotation);
+        QueueFree();
     }
 }
 
 
-void splitAsteroid(int splitFactor, Vector3 hitLocation, Basis hitRotation){
+/*void splitAsteroid(int splitFactor, Vector3 hitLocation, Basis hitRotation){
     mainScene = GetTree().Root.GetChild(0);
 
     RandomNumberGenerator rng = new RandomNumberGenerator();
@@ -82,5 +82,5 @@ void splitAsteroid(int splitFactor, Vector3 hitLocation, Basis hitRotation){
             asteroid.GlobalPosition = hitLocation + direction * spreadDistance;
 
             GD.Print(asteroid.GlobalPosition);
-    }
+    }*/
 }

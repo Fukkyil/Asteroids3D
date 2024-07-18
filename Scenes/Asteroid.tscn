@@ -1,19 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://ct1vbiiay1wh4"]
 
-[ext_resource type="Script" path="res://Scenes/Asteroid.cs" id="1_ryn43"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_i4bih"]
+[ext_resource type="Script" path="res://Scripts/Asteroid.cs" id="1_ras8u"]
+[ext_resource type="ArrayMesh" uid="uid://cdjnqde6i2b67" path="res://Models/Objects/Asteroid.obj" id="2_wr1t4"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8b1an"]
+radius = 0.55
 
 [node name="RigidBody3D" type="RigidBody3D"]
 collision_layer = 2
 gravity_scale = 0.0
-script = ExtResource("1_ryn43")
+script = ExtResource("1_ras8u")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, 0, 0)
-mesh = SubResource("SphereMesh_i4bih")
+mesh = ExtResource("2_wr1t4")
 skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

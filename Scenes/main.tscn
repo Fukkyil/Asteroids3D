@@ -28,3 +28,8 @@ skeleton = NodePath("../..")
 
 [node name="Asteroid" parent="." instance=ExtResource("3_0ulxj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 601.66)
+maxHealth = null
+minAsteroidsOnSplit = null
+maxAsteroidsOnSplit = null
+minAsteroidSpreadSpeed = null
+maxAsteroidSpreadSpeed = null
