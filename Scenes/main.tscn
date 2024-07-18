@@ -27,4 +27,4 @@ mesh = ExtResource("4_utqqf")
 skeleton = NodePath("../..")
 
 [node name="Asteroid" parent="." instance=ExtResource("3_0ulxj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 136.905)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 601.66)

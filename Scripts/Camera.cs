@@ -25,8 +25,6 @@ public partial class Camera : Camera3D
     public float maximum_mouse_rotation = 90;
     [Export]
     public Vector3 offset = new Vector3(0, 30, 85);
-
-    public Vector2 adsas;
     private ShipController shipController;
     private int dirY;
     private int dirX;
@@ -35,7 +33,6 @@ public partial class Camera : Camera3D
 
     public override void _Ready()
     {
-        adsas = GetWindow().Size;
 
         Input.MouseMode = Input.MouseModeEnum.Captured;
         shipController = GetNode<ShipController>("../");
@@ -82,14 +79,12 @@ public partial class Camera : Camera3D
 
     public override void _Process(double delta)
     {
-        if(Input.MouseMode is Input.MouseModeEnum.Captured && Input.IsActionPressed("ui_back")){
+        if(Input.MouseMode is Input.MouseModeEnum.Captured && Input.IsActionJustPressed("ui_back")){
             Input.MouseMode = Input.MouseModeEnum.Visible;
         }
-        else if(Input.MouseMode is Input.MouseModeEnum.Visible && Input.IsActionPressed("ui_back")){
+        else if(Input.MouseMode is Input.MouseModeEnum.Visible && Input.IsActionJustPressed("ui_back")){
             Input.MouseMode = Input.MouseModeEnum.Captured;
         } 
-
-        Input.WarpMouse(new Vector2(viewport.X/2, viewport.Y/2));
 
 
         //FOV Adjustments
@@ -107,8 +102,6 @@ public partial class Camera : Camera3D
 
         Vector3 rotatedOffset = shipController.GlobalTransform.Basis * offset;
         GlobalPosition = shipController.GlobalPosition + rotatedOffset;
-
-        //GlobalRotation = shipController.GlobalRotation;
 
         Quaternion shipRotation = shipController.GlobalTransform.Basis.GetRotationQuaternion();
         Quaternion cameraRotation = GlobalTransform.Basis.GetRotationQuaternion();

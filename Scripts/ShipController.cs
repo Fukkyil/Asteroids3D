@@ -77,7 +77,6 @@ public partial class ShipController : RigidBody3D
 	   if(velocity.Length() > max_speed){
 		velocity = velocity.Normalized() * max_speed;
 	   }
-	   //GD.Print("Current speed:" + velocity.Length());
 
 
 	   MoveAndCollide(velocity);

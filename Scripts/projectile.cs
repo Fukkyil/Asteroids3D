@@ -6,7 +6,7 @@ public partial class Projectile : Area3D
     [Signal]
     public delegate void hitEventHandler(Vector3 position);
     [Export]
-    public float muzzle_speed = 150f;
+    public float muzzle_speed = 600f;
     [Export]
     public int playerCollisionLayer = 1;
     [Export]
@@ -17,6 +17,7 @@ public partial class Projectile : Area3D
     public int selfDamage = 20;
     public bool canHitAsteroids = true;
     public int asteroidDamage = 20;
+    public int asteroidSplitFactor = 2;
     public Vector3 rotation = Vector3.Zero;
     public Vector3 velocity = Vector3.Zero;
 
@@ -35,19 +36,17 @@ public partial class Projectile : Area3D
     private void _on_body_entered(Node body){
         EmitSignal("hit", Transform.Origin);
         if(body is ShipController && canHitSelf){
-            GD.Print("You hit yourself, retard!");
             QueueFree();
         }
         if(body is Asteroid && canHitAsteroids){
-            GD.Print("You hit an asteroid!" + body);
+            Asteroid asteroid = (Asteroid)body;
+            asteroid.takeDamage(asteroidDamage, asteroidSplitFactor, GlobalTransform.Origin, GlobalTransform.Basis);
             QueueFree();
         }
         else{
             GD.Print("You hit something else... did I forget to set it's type?");
             QueueFree();
         }
-
-
     }
 
     private async void StartTimer(){
@@ -57,6 +56,5 @@ public partial class Projectile : Area3D
 
     private void _on_timer_timeout(){
         QueueFree();
-        GD.Print("Despawned due to timeout!");
     }
 }
