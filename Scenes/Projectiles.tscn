@@ -17,7 +17,7 @@ size = Vector3(1.5, 15, 1.5)
 
 [node name="Projectile" type="Area3D"]
 collision_layer = 16
-collision_mask = 15
+collision_mask = 47
 script = ExtResource("1_lv11p")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
