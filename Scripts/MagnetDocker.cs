@@ -4,7 +4,7 @@ using System;
 public partial class MagnetDocker : Node3D
 {
     [Export]
-    public float lockAreaSize = 3;
+    public float lockAreaSize = 2;
     [Export]
     public float pullAreaSize = 15;
     [Export]
@@ -57,7 +57,6 @@ public partial class MagnetDocker : Node3D
             float magnetForceModifier = isMagnetPush ? -1*magnetPushMultiplier : 1*magnetPullMultiplier;
 
             player.velocity += lockAreaDirection * magnetForceModifier * adjustedForce * (float)delta;
-            GD.Print("Player is in field! Velocity is:" + player.velocity + " Pull force is: " + adjustedForce + " Pull origin is: " + GlobalTransform.Origin + " Player Origin is: " + player.GlobalTransform.Origin);
         }
     }
 
