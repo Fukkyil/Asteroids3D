@@ -78,7 +78,6 @@ public partial class ShipController : RigidBody3D
 		velocity = velocity.Normalized() * max_speed;
 	   }
 
-
 	   MoveAndCollide(velocity);
 	}
 

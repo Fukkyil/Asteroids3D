@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://eg7j51tr7cjo"]
+
+[ext_resource type="Script" path="res://Scripts/MagnetDocker.cs" id="1_l8h3u"]
+[ext_resource type="ArrayMesh" uid="uid://l84mc0sgskxo" path="res://Models/Stations/Docking/Magnet.obj" id="2_qbjop"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nlh4q"]
+radius = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oo26h"]
+blend_mode = 3
+cull_mode = 2
+emission_enabled = true
+emission = Color(0, 0, 1, 1)
+emission_energy_multiplier = 40.05
+
+[sub_resource type="SphereMesh" id="SphereMesh_egadk"]
+material = SubResource("StandardMaterial3D_oo26h")
+radius = 1.0
+height = 2.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_24bkn"]
+radius = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_65i1g"]
+blend_mode = 3
+cull_mode = 2
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_7t1kd"]
+material = SubResource("StandardMaterial3D_65i1g")
+radius = 1.0
+height = 2.0
+
+[node name="MagnetDocker" type="Node3D"]
+script = ExtResource("1_l8h3u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_qbjop")
+
+[node name="LockArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LockArea"]
+shape = SubResource("SphereShape3D_nlh4q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LockArea/CollisionShape3D"]
+mesh = SubResource("SphereMesh_egadk")
+skeleton = NodePath("../..")
+
+[node name="PullArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PullArea"]
+shape = SubResource("SphereShape3D_24bkn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PullArea/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.28882e-05)
+mesh = SubResource("SphereMesh_7t1kd")
+
+[connection signal="body_entered" from="LockArea" to="." method="_on_lock_area_body_entered"]
+[connection signal="body_exited" from="LockArea" to="." method="_on_lock_area_body_exited"]
+[connection signal="body_entered" from="PullArea" to="." method="_on_pull_area_body_entered"]
+[connection signal="body_exited" from="PullArea" to="." method="_on_pull_area_body_exited"]
