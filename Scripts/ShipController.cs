@@ -17,7 +17,7 @@ public partial class ShipController : RigidBody3D
 
 	private Timer shootTimer;
 
-	private PackedScene bulletScene = (PackedScene)ResourceLoader.Load("res://Scenes/Projectiles.tscn");
+	private PackedScene bulletScene = (PackedScene)ResourceLoader.Load("res://Scenes/Weapons/Projectiles.tscn");
 	private float forward_speed = 0;
 
 	public enum thrustState{
@@ -45,27 +45,10 @@ public partial class ShipController : RigidBody3D
 
     public override void _Process(double delta)
 	{
-
-		if(Input.IsActionPressed("throttle_up")){
-			forward_speed = acceleration * (float)delta;
-			currentThrustState = thrustState.Forward;
-		}
-		else if(Input.IsActionPressed("throttle_down")){
-			forward_speed = -acceleration * (float)delta;
-			currentThrustState = thrustState.Backwards;
-		}
-		else{
-			forward_speed = 0;
-			currentThrustState = thrustState.Idle;
-		}
-
-		if(Input.IsActionPressed("mouse_left") && shootTimer.IsStopped()){
-			Shoot();
-		}
-
-
-
-		setRotation(delta);
+		ShipUI.Instance.UpdateUI(Rotation, GlobalPosition, velocity);
+		manageShooting();
+		manageMovement(delta);
+		manageRotation(delta);
 	}
 
 
@@ -83,7 +66,7 @@ public partial class ShipController : RigidBody3D
 
 
 
-	public void setRotation(double delta){
+	public void manageRotation(double delta){
 		roll_input = Input.GetAxis("roll_right", "roll_left");
 		pitch = new Quaternion(Vector3.Right, pitch_input * pitch_speed * (float)delta);
 		yaw = new Quaternion(Vector3.Up, yaw_input * yaw_speed * (float)delta);
@@ -104,8 +87,8 @@ public partial class ShipController : RigidBody3D
 		roll_input = 0;
 	}
 
-	public void Shoot(){
-		var bullet = (Projectile)bulletScene.Instantiate();
+	private void shoot(){
+		Projectile bullet = (Projectile)bulletScene.Instantiate();
 		Owner.AddChild(bullet);
 		bullet.GlobalPosition = GetNode<Node3D>("MainGun").GlobalPosition;
 		bullet.GlobalRotation = GlobalRotation;
@@ -113,5 +96,26 @@ public partial class ShipController : RigidBody3D
 
 		shootTimer.Start(shotCooldown);
 	}
+
+	private void manageShooting(){
+		if(Input.IsActionPressed("mouse_left") && shootTimer.IsStopped()){
+			shoot();
+		}
+	}
+
+	private void manageMovement(double delta){
+			if(Input.IsActionPressed("throttle_up")){
+		forward_speed = acceleration * (float)delta;
+		currentThrustState = thrustState.Forward;
+	}
+	else if(Input.IsActionPressed("throttle_down")){
+		forward_speed = -acceleration * (float)delta;
+		currentThrustState = thrustState.Backwards;
+	}
+	else{
+		forward_speed = 0;
+		currentThrustState = thrustState.Idle;
+	}
+}
 
 }

@@ -1,4 +1,5 @@
 using Godot;
+using Structures.Stations;
 using System;
 
 public partial class MagnetDocker : Node3D
@@ -40,7 +41,10 @@ public partial class MagnetDocker : Node3D
     private Node3D lockAreaVisual;
     private Node3D pullAreaVisual;
 
+    private SpaceStation parentStation;
+
     public override void _Ready(){
+        parentStation = GetParent<SpaceStation>();
         StartNodes();
         SetScales();
     }
@@ -63,6 +67,7 @@ public partial class MagnetDocker : Node3D
     private void _on_lock_area_body_exited(Node Body){
         if(Body is ShipController){
             isPlayerLocked = false;
+            parentStation.UndockShip();
         }
     }
 
@@ -78,6 +83,7 @@ public partial class MagnetDocker : Node3D
             player.GlobalTransform = new Transform3D(new Basis(finalRotation), player.GlobalTransform.Origin);
             isPlayerLocked = true;
             isMagnetPush = true;
+            parentStation.DockShip();
         }
         else{
             GD.Print(Body + " Just entered the magnet lock area");

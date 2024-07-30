@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b4m8i8cr5ud7i"]
 
-[ext_resource type="Script" path="res://Scripts/Projectile.cs" id="1_lv11p"]
+[ext_resource type="Script" path="res://Scripts/Weapons/Projectile.cs" id="1_jkhdt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e3r7s"]
 albedo_color = Color(0.345098, 1, 0, 1)
@@ -18,7 +18,7 @@ size = Vector3(1.5, 15, 1.5)
 [node name="Projectile" type="Area3D"]
 collision_layer = 16
 collision_mask = 47
-script = ExtResource("1_lv11p")
+script = ExtResource("1_jkhdt")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.4, 0, 0, 0, -1.74846e-08, -0.4, 0, 0.4, -1.74846e-08, 0, 0, 0)

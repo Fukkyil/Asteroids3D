@@ -15,7 +15,7 @@ public float minAsteroidSpreadSpeed = 200;
 public float maxAsteroidSpreadSpeed = 500;
 
 Node mainScene;
-private PackedScene asteroidScene = ResourceLoader.Load<PackedScene>("res://Scenes/Asteroid.tscn");
+//private PackedScene asteroidScene = ResourceLoader.Load<PackedScene>("res://Scenes/Asteroid.tscn");
 private int asteroidSize = 16;
 private int asteroidSizeMultiplier = 20;
 private int currentHealth;

@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://bpg1qdjdtknwm"]
+
+[ext_resource type="Script" path="res://StationSpawner.cs" id="1_g0v0r"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7uhri"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i8rdc"]
+blend_mode = 3
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 50.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_n36wq"]
+material = SubResource("StandardMaterial3D_i8rdc")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_deepf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sqjsw"]
+blend_mode = 3
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 50.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_xyyq6"]
+material = SubResource("StandardMaterial3D_sqjsw")
+
+[node name="StationSpawner" type="Node3D"]
+script = ExtResource("1_g0v0r")
+
+[node name="Spawn" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Spawn"]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+shape = SubResource("SphereShape3D_7uhri")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Spawn/CollisionShape3D"]
+mesh = SubResource("SphereMesh_n36wq")
+
+[node name="Despawn" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Despawn"]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+shape = SubResource("SphereShape3D_deepf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Despawn/CollisionShape3D"]
+mesh = SubResource("SphereMesh_xyyq6")

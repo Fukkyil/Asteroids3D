@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://brlugoyojhk2"]
+
+[ext_resource type="Script" path="res://Scripts/UI/ShipUI.cs" id="1_obosg"]
+
+[node name="ShipUI" type="CanvasLayer"]
+script = ExtResource("1_obosg")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -77.0
+offset_right = 96.0
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Position" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Position"
+
+[node name="shipPosition" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Rotation" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Rotation
+"
+
+[node name="shipRotation" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "
+"
+
+[node name="Momentum" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "Momentum"
+
+[node name="shipMomentum" type="Label" parent="PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+text = "
+"
