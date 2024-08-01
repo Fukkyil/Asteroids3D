@@ -77,3 +77,4 @@ mouse_right={
 3d_physics/layer_4="EnemyShips"
 3d_physics/layer_5="Projectiles"
 3d_physics/layer_6="Stations"
+3d_physics/layer_7="Debug"

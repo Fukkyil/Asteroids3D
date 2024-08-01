@@ -13,8 +13,9 @@ public partial class SpaceStation : Node3D
     public stationFactionEnum StationFaction;
     protected bool isShipdocked;
     protected UIManager uiManager = new UIManager();
+    protected InvItem[] stationInventory;
 
-        public override void _Process(double delta)
+    public override void _Process(double delta)
         {
             if(isShipdocked && Input.IsActionJustPressed("ui_back")){
                 UndockShip();
@@ -32,4 +33,11 @@ public partial class SpaceStation : Node3D
         isShipdocked = false;
     }
 
+    public void AddInvItem(){
+
+    }
+
+    public void CreateInvItem(){
+        
+    }
 }}

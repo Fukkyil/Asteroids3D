@@ -29,9 +29,11 @@ script = ExtResource("1_g0v0r")
 
 [node name="Spawn" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 0)
+collision_layer = 64
+collision_mask = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Spawn"]
-transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+transform = Transform3D(16, 0, 0, 0, 16, 0, 0, 0, 16, 0, 0, 0)
 shape = SubResource("SphereShape3D_7uhri")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Spawn/CollisionShape3D"]
@@ -39,13 +41,21 @@ mesh = SubResource("SphereMesh_n36wq")
 
 [node name="Despawn" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
+collision_layer = 64
+collision_mask = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Despawn"]
-transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0, 0)
+transform = Transform3D(16, 0, 0, 0, 16, 0, 0, 0, 16, 0, 0, 0)
 shape = SubResource("SphereShape3D_deepf")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Despawn/CollisionShape3D"]
 mesh = SubResource("SphereMesh_xyyq6")
 
+[node name="Changetimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
 [connection signal="area_entered" from="Spawn" to="." method="_on_spawn_area_entered"]
+[connection signal="body_entered" from="Spawn" to="." method="_on_spawn_body_entered"]
 [connection signal="area_entered" from="Despawn" to="." method="_on_despawn_area_entered"]
+[connection signal="timeout" from="Changetimer" to="." method="_on_changetimer_timeout"]

@@ -9,8 +9,6 @@ public partial class StationUI : Node
     protected Texture panelTexture;
     protected Node slotParent;
     protected Container panelNode;
-    protected InvItem[] stationInventory;
-
     public void SlotClicked(StationInvSlot slot){
         if(selectedSlot == slot){
             panelNode.Visible = false;
@@ -22,7 +20,7 @@ public partial class StationUI : Node
         }
 
     }
-    public void AddItem(InvItem item){
+    public void AddUIItem(InvItem item){
         StationInvSlot invslot = (StationInvSlot)invSlotScene.Instantiate();
         invslot.SetParameters(item.ItemTexture, item.ItemName, item.ItemPrice);
         slotParent.AddChild(invslot);
@@ -32,5 +30,9 @@ public partial class StationUI : Node
         panelTexture = _panelTexture;
     }
 
-
+    protected void SetUIParameters(PackedScene slot, Node parent, Container panel){
+        panelNode = panel;
+        invSlotScene = slot;
+        slotParent = parent;
+    }
 }

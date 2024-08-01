@@ -35,7 +35,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 809.508)
 [node name="ShipUI" parent="." instance=ExtResource("5_ch0ru")]
 
 [node name="StationSpawner" parent="." instance=ExtResource("6_8n8th")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.0087, 0, 351.407)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.0087, 0, 46.5576)
 
 [node name="ArmoryStation" parent="." instance=ExtResource("6_t3mho")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 216.018)
