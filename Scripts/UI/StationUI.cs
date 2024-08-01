@@ -9,6 +9,7 @@ public partial class StationUI : Node
     protected Texture panelTexture;
     protected Node slotParent;
     protected Container panelNode;
+    protected InvItem[] stationInventory;
 
     public void SlotClicked(StationInvSlot slot){
         if(selectedSlot == slot){
@@ -30,4 +31,6 @@ public partial class StationUI : Node
     protected void updatePanel(Texture _panelTexture){
         panelTexture = _panelTexture;
     }
+
+
 }

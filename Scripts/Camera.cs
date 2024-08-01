@@ -79,12 +79,6 @@ public partial class Camera : Camera3D
 
     public override void _Process(double delta)
     {
-        if(Input.MouseMode is Input.MouseModeEnum.Captured && Input.IsActionJustPressed("ui_back")){
-            Input.MouseMode = Input.MouseModeEnum.Visible;
-        }
-        else if(Input.MouseMode is Input.MouseModeEnum.Visible && Input.IsActionJustPressed("ui_back")){
-            Input.MouseMode = Input.MouseModeEnum.Captured;
-        } 
 
 
         //FOV Adjustments

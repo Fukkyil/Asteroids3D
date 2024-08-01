@@ -6,21 +6,30 @@ using System;
 namespace Structures.Stations{
 public partial class SpaceStation : Node3D
 {
-    public string stationName = "undefined";
-    public bool stationBuysItems;
-    public bool stationSellsItems;
+    public string stationName = "testStation";
     public enum stationFactionEnum{Lunare, test1, test2, test3};
     public enum stationTypeEnum{Mining,Armory,Mechanic,General};
     public stationTypeEnum StationType;
     public stationFactionEnum StationFaction;
-    private UIManager uiManager;
-    private InvItem[] StationInventory;
-    public void DockShip(){
+    protected bool isShipdocked;
+    protected UIManager uiManager = new UIManager();
+
+        public override void _Process(double delta)
+        {
+            if(isShipdocked && Input.IsActionJustPressed("ui_back")){
+                UndockShip();
+            }
+        }
+        public void DockShip(){
         GD.Print("Ship just docked at " + stationName);
+        GD.Print("Station type: " + StationType);
+        uiManager.InstantiateUI(StationType, this);
+        isShipdocked = true;
     }
     public void UndockShip(){
         GD.Print("Ship just undocked at " + stationName);
-
+        uiManager.UninstantiateUI();
+        isShipdocked = false;
     }
 
 }}

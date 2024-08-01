@@ -67,7 +67,6 @@ public partial class MagnetDocker : Node3D
     private void _on_lock_area_body_exited(Node Body){
         if(Body is ShipController){
             isPlayerLocked = false;
-            parentStation.UndockShip();
         }
     }
 

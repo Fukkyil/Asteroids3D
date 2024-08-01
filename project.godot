@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-UIManager="*res://Scripts/UI/UIManager.cs"
+AutoloadGeneral="*res://Scripts/Autoload/AutoloadGeneral.cs"
 
 [display]
 
