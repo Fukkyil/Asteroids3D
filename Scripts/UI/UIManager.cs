@@ -21,10 +21,10 @@ public partial class UIManager : Node
 
         string uiPath;
        if(uiScenes.TryGetValue(UIType, out uiPath)){
-             PackedScene packedScene = GD.Load<PackedScene>(uiPath);
+             PackedScene uiScene = GD.Load<PackedScene>(uiPath);
 
-             if(packedScene != null){
-                stationUI = (StationUI)packedScene.Instantiate();
+             if(uiScene != null){
+                stationUI = (StationUI)uiScene.Instantiate();
                 return true;
             }
         }

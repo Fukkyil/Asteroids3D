@@ -1,20 +1,15 @@
 using Godot;
+using Manager.Inventory.Item;
 using System;
+using System.Reflection.Metadata.Ecma335;
 
-public partial class ArmoryStationInvSlot : PanelContainer
+public partial class ArmoryStationInvSlot : StationInvSlot
 {
-    private Label nameLabel;
-    private Label priceLabel;
-    private TextureRect weaponTexture;
-    
-    public void SetParameters(Texture _weaponTexture, string _weaponName, int _weaponPrice){
+    public ArmoryStationInvSlot(){
         nameLabel = GetNode<Label>("MarginContainer/GridContainer/GridContainer/WeaponName");
-        nameLabel.Text = _weaponName;
-
         priceLabel = GetNode<Label>("MarginContainer/GridContainer/WeaponPrice");
-        priceLabel.Text = _weaponPrice.ToString();
-
-        weaponTexture = GetNode<TextureRect>("MarginContainer/GridContainer/GridContainer/WeaponTexture");
-        weaponTexture.Texture = (Texture2D)_weaponTexture;
+        slotTextureNode = GetNode<TextureRect>("MarginContainer/GridContainer/GridContainer/WeaponTexture");
+        panelTextureNode = GetNode<TextureRect>("PanelContainer/MarginContainer/BoxContainer/ItemPanel/MarginContainer/BoxContainer/BoxContainer/Panel/TextureRect");
+        parentStation = (ArmoryStationUI)GetParent(); 
     }
 }

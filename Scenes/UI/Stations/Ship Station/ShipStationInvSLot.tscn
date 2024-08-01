@@ -1,13 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://7s5s6j7o5r2i"]
+[gd_scene load_steps=2 format=3 uid="uid://dqpikuyltdaw4"]
 
-[ext_resource type="Script" path="res://Scripts/UI/Stations/Armory Station/ArmoryStationInvSlot.cs" id="1_sfn85"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wobvv"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hv34k"]
-
-[node name="PanelContainer" type="PanelContainer"]
-offset_right = 210.0
+[node name="ShipSlot" type="PanelContainer"]
+offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_sfn85")
+size_flags_horizontal = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -19,7 +17,7 @@ theme_override_constants/margin_bottom = 2
 [node name="GridContainer" type="GridContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
-columns = 3
+columns = 5
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/GridContainer"]
 layout_mode = 2
@@ -27,25 +25,32 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
 
-[node name="WeaponTexture" type="TextureRect" parent="MarginContainer/GridContainer/GridContainer"]
+[node name="ShipFactionTexture" type="TextureRect" parent="MarginContainer/GridContainer/GridContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = SubResource("PlaceholderTexture2D_hv34k")
+texture = SubResource("PlaceholderTexture2D_wobvv")
 
-[node name="WeaponName" type="Label" parent="MarginContainer/GridContainer/GridContainer"]
+[node name="ShipName" type="Label" parent="MarginContainer/GridContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
-text = "WeaponName"
+text = "Shipname"
 
 [node name="VSeparator" type="VSeparator" parent="MarginContainer/GridContainer"]
 layout_mode = 2
 
-[node name="WeaponPrice" type="Label" parent="MarginContainer/GridContainer"]
+[node name="ShipClass" type="Label" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+text = "Class"
+
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/GridContainer"]
+layout_mode = 2
+
+[node name="ShipPrice" type="Label" parent="MarginContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 text = "Price"
-
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]

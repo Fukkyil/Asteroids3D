@@ -46,3 +46,6 @@ shape = SubResource("SphereShape3D_deepf")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Despawn/CollisionShape3D"]
 mesh = SubResource("SphereMesh_xyyq6")
+
+[connection signal="area_entered" from="Spawn" to="." method="_on_spawn_area_entered"]
+[connection signal="area_entered" from="Despawn" to="." method="_on_despawn_area_entered"]

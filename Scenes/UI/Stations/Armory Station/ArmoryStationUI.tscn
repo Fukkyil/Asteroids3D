@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdkvy2b40c0o7"]
+[gd_scene load_steps=4 format=3 uid="uid://cdkvy2b40c0o7"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Stations/Armory Station/ArmoryStationUI.cs" id="1_jq3en"]
-[ext_resource type="PackedScene" uid="uid://7s5s6j7o5r2i" path="res://Scenes/UI/Stations/Armory Station/ArmoryStationInvSlot.tscn" id="1_qb0xd"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_22y5d"]
 
@@ -40,127 +39,8 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ArmoryStationInvSlot11" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot21" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot22" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot23" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot24" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot25" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot26" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot27" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot28" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot12" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot13" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot14" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot15" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot16" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot17" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot18" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot19" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot20" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot29" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot30" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot31" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot32" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot33" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot34" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot35" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot36" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot37" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot38" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot39" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ArmoryStationInvSlot40" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer" instance=ExtResource("1_qb0xd")]
-layout_mode = 2
-size_flags_horizontal = 3
-
 [node name="ItemPanel" type="PanelContainer" parent="PanelContainer/MarginContainer/BoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -176,7 +56,7 @@ layout_mode = 2
 vertical = true
 
 [node name="BoxContainer" type="BoxContainer" parent="PanelContainer/MarginContainer/BoxContainer/ItemPanel/MarginContainer/BoxContainer"]
-custom_minimum_size = Vector2(0, 300)
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 vertical = true
 

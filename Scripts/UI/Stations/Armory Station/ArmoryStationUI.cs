@@ -5,16 +5,9 @@ using System;
 
 public partial class ArmoryStationUI : StationUI
 {
-private PackedScene invSlotScene = (PackedScene)ResourceLoader.Load("res://Scenes/UI/Stations/Armory Station/ArmoryStationInvSlot.tscn");
-private ArmoryStationInvSlot[] inventory;
-
-    public override void _Ready()
-    {
+    public ArmoryStationUI(){
+        invSlotScene = (PackedScene)ResourceLoader.Load("res://Scenes/UI/Stations/Armory Station/ArmoryStationInvSlot.tscn");
+        slotParent = GetNode<Node>("PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer/GridContainer");
+        panelNode = GetNode<Container>("PanelContainer/MarginContainer/BoxContainer/ItemPanel");
     }
-
-    public void AddItem(){
-
-    }
-
-    
 }
