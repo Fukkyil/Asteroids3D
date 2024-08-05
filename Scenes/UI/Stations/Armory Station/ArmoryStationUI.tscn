@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdkvy2b40c0o7"]
+[gd_scene load_steps=5 format=3 uid="uid://cdkvy2b40c0o7"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Stations/Armory Station/ArmoryStationUI.cs" id="1_jq3en"]
+[ext_resource type="PackedScene" uid="uid://7s5s6j7o5r2i" path="res://Scenes/UI/Stations/Armory Station/ArmoryStationInvSlot.tscn" id="2_i4k45"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_22y5d"]
 
@@ -32,12 +33,22 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/BoxContainer/ItemList"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/BoxContainer/ItemList"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/MarginContainer"]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/ScrollContainer"]
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="PanelContainer" parent="PanelContainer/MarginContainer/BoxContainer/ItemList/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("2_i4k45")]
+layout_mode = 2
 
 [node name="ItemPanel" type="PanelContainer" parent="PanelContainer/MarginContainer/BoxContainer"]
 layout_mode = 2

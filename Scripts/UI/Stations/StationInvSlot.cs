@@ -1,4 +1,5 @@
 using Godot;
+using Manager.Inventory.Item;
 using System;
 
 public partial class StationInvSlot : Node
@@ -7,21 +8,40 @@ public partial class StationInvSlot : Node
     protected Label nameLabel;
     protected Label priceLabel;
     protected TextureRect slotTextureNode;
-    protected TextureRect panelTextureNode;
-
+    protected InvItem referenceItem = new InvItem();
+    protected bool isSlotInitialized = false;
 
     public Texture slotTexture;
 
-        public void SetParameters(Texture _weaponTexture, string _weaponName, int _weaponPrice){
-        nameLabel.Text = _weaponName;
-        priceLabel.Text = _weaponPrice.ToString();
-        slotTextureNode.Texture = (Texture2D)_weaponTexture;
-        panelTextureNode.Texture = (Texture2D)_weaponTexture;
+    public override void _Ready()
+    {
+        StartupSlot();
+        isSlotInitialized = true;
     }
 
-        public void _on_gui_input(InputEvent @event){
+    public void SetInvSlotParameters(InvItem item){
+        referenceItem = item;
+        nameLabel.Text = item.ItemName;
+        priceLabel.Text = item.ItemPrice.ToString();
+        slotTextureNode.Texture = item.ItemTexture;
+    }
+
+    public void SetParentStation(StationUI parent){
+        parentStation = parent;
+    }
+    
+    public InvItem GetReferenceItem(){
+        return referenceItem;
+    }
+
+    protected void _on_gui_input(InputEvent @event){
         if(@event is InputEventMouseButton eventMouseButton && eventMouseButton.Pressed){
             parentStation.SlotClicked(this);
         }
     }
+
+    protected virtual void StartupSlot(){
+
+    }
+    
 }

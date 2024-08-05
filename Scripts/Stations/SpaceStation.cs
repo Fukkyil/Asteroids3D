@@ -2,6 +2,7 @@ using Godot;
 using Manager.Inventory.Item;
 using Manager.UI;
 using System;
+using System.Collections.Generic;
 
 namespace Structures.Stations{
 public partial class SpaceStation : Node3D
@@ -11,9 +12,9 @@ public partial class SpaceStation : Node3D
     public enum stationTypeEnum{Mining,Armory,Mechanic,General};
     public stationTypeEnum StationType;
     public stationFactionEnum StationFaction;
+    public UIManager uiManager = new UIManager();
     protected bool isShipdocked;
-    protected UIManager uiManager = new UIManager();
-    protected InvItem[] stationInventory;
+    protected List<InvItem> stationInventory = new List<InvItem>();
 
     public override void _Process(double delta)
         {
@@ -21,10 +22,11 @@ public partial class SpaceStation : Node3D
                 UndockShip();
             }
         }
-        public void DockShip(){
+    public void DockShip(){
         GD.Print("Ship just docked at " + stationName);
         GD.Print("Station type: " + StationType);
         uiManager.InstantiateUI(StationType, this);
+        ParseInventoryToUI();
         isShipdocked = true;
     }
     public void UndockShip(){
@@ -33,11 +35,36 @@ public partial class SpaceStation : Node3D
         isShipdocked = false;
     }
 
-    public void AddInvItem(){
-
+    public void AddItemInInv(InvItem item){
+        stationInventory.Add(item);
     }
 
-    public void CreateInvItem(){
-        
+    public void CreateInvItem(string name, string description, Texture2D texture, int price, InvItem.ItemTypeEnum type, InvItem.ItemFactionEnum faction){
+        InvItem item = new InvItem
+        {
+            ItemName = name,
+            ItemDescription = description,
+            ItemTexture = texture,
+            ItemPrice = price,
+            ItemType = type,
+            ItemFaction = faction
+        };
+            stationInventory.Add(item);
+    }
+
+    protected void ParseInventoryToUI(){
+        GD.Print("Parse UI");
+        ClearUIInventory();
+        foreach(InvItem item in stationInventory){
+            uiManager.stationUI.AddUIItem(item);
+            GD.Print("Item: " + item.ItemName);
+        }
+    }
+    
+    protected void ClearUIInventory(){
+        GD.Print("Clear UI");
+        foreach(InvItem item in stationInventory){
+            uiManager.stationUI.RemoveUIItem(item);
+        }
     }
 }}
