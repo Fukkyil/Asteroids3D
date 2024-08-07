@@ -1,31 +1,33 @@
 using Godot;
-using Manager.Inventory.Item;
-using System;
-using System.Collections.Generic;
-
 public partial class StationUI : Node
 {
     protected PackedScene invSlotScene;
     protected StationInvSlot selectedSlot;
     protected TextureRect panelTextureNode;
+    protected RichTextLabel panelDescriptionNode;
+    protected Label panelTitleNode;
     protected Node slotParent;
-    protected Container panelNode;
+    protected Container selectedPanelNode;
+    protected Container nullPanelNode;
     public void SlotClicked(StationInvSlot slot){
         if(selectedSlot == slot){
-            panelNode.Visible = false;
+            selectedPanelNode.Visible = false;
+            nullPanelNode.Visible = true;
+            selectedSlot = null;
         }
         else{
             selectedSlot = slot;
             updatePanel(slot.GetReferenceItem());
-            panelNode.Visible = true;
+            selectedPanelNode.Visible = true;
+            nullPanelNode.Visible = false;
         }
     }
 
     public void AddUIItem(InvItem item){
         StationInvSlot invslot = (StationInvSlot)invSlotScene.Instantiate();
         slotParent.AddChild(invslot);
-        invslot.SetInvSlotParameters(item);
         invslot.SetParentStation(this);
+        invslot.SetInvSlotParameters(item);
     }
 
     public void RemoveUIItem(InvItem item){
@@ -43,6 +45,8 @@ public partial class StationUI : Node
 
     protected void updatePanel(InvItem item){
         panelTextureNode.Texture = (Texture2D)item.ItemTexture;
+        panelTitleNode.Text = item.ItemName;
+        panelDescriptionNode.Text = item.ItemDescription;
     }
 
 }

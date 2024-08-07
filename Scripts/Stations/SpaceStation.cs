@@ -1,10 +1,6 @@
 using Godot;
-using Manager.Inventory.Item;
-using Manager.UI;
-using System;
 using System.Collections.Generic;
 
-namespace Structures.Stations{
 public partial class SpaceStation : Node3D
 {
     public string stationName = "testStation";
@@ -35,6 +31,16 @@ public partial class SpaceStation : Node3D
         isShipdocked = false;
     }
 
+    public void PrintInventory(){
+        GD.Print("PrintIventory was called by " + this);
+        foreach(InvItem item in stationInventory){
+            GD.Print("Itemname: " + item.ItemName);
+            GD.Print("Itemprice: " + item.ItemPrice);
+            GD.Print("Itemfaction: " + item.ItemFaction);
+            GD.Print("Itemtype: " + item.ItemType);
+        }
+    }
+
     public void AddItemInInv(InvItem item){
         stationInventory.Add(item);
     }
@@ -54,10 +60,10 @@ public partial class SpaceStation : Node3D
 
     protected void ParseInventoryToUI(){
         GD.Print("Parse UI");
-        ClearUIInventory();
+        PrintInventory();
         foreach(InvItem item in stationInventory){
+            GD.Print("Item: " + item.ItemName + " Was instantiated!");
             uiManager.stationUI.AddUIItem(item);
-            GD.Print("Item: " + item.ItemName);
         }
     }
     
@@ -67,4 +73,4 @@ public partial class SpaceStation : Node3D
             uiManager.stationUI.RemoveUIItem(item);
         }
     }
-}}
+}

@@ -9,7 +9,7 @@ public partial class ShipController : RigidBody3D
 	[Export]
 	public float pitch_speed = 1f;
 	[Export]
-	public float roll_speed = 1f;
+	public float roll_speed = 2f;
 	[Export]
 	public float yaw_speed = 1f;
 	[Export]
@@ -55,7 +55,7 @@ public partial class ShipController : RigidBody3D
     public override void _PhysicsProcess(double delta)
 	{
 	   Vector3 forward = -GlobalTransform.Basis.Z;
-	   velocity = velocity + forward * forward_speed * (float)delta;
+	   velocity += forward * forward_speed * (float)delta;
 
 	   if(velocity.Length() > max_speed){
 		velocity = velocity.Normalized() * max_speed;
@@ -103,8 +103,8 @@ public partial class ShipController : RigidBody3D
 		}
 	}
 
-	private void manageMovement(double delta){
-			if(Input.IsActionPressed("throttle_up")){
+		private void manageMovement(double delta){
+	if(Input.IsActionPressed("throttle_up")){
 		forward_speed = acceleration * (float)delta;
 		currentThrustState = thrustState.Forward;
 	}
@@ -116,6 +116,6 @@ public partial class ShipController : RigidBody3D
 		forward_speed = 0;
 		currentThrustState = thrustState.Idle;
 	}
-}
+	}
 
 }

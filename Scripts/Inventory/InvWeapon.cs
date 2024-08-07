@@ -1,8 +1,4 @@
 using Godot;
-using Manager.Inventory.Item;
-using System;
-using System.Runtime.CompilerServices;
-
 public partial class InvWeapon : InvItem
 {
     public enum WeaponTypeEnum{Plasma, Laser, Kinetic}

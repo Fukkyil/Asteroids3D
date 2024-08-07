@@ -1,7 +1,4 @@
 using Godot;
-using Manager.Inventory.Item;
-using System;
-
 public partial class StationInvSlot : Node
 {
     protected StationUI parentStation;
@@ -21,9 +18,13 @@ public partial class StationInvSlot : Node
 
     public void SetInvSlotParameters(InvItem item){
         referenceItem = item;
+        GD.Print("Where??");
         nameLabel.Text = item.ItemName;
+        GD.Print("Maybe here?");
         priceLabel.Text = item.ItemPrice.ToString();
+        GD.Print("here?");
         slotTextureNode.Texture = item.ItemTexture;
+        GD.Print("Is this slot initialized? " + isSlotInitialized);
     }
 
     public void SetParentStation(StationUI parent){

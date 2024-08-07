@@ -1,8 +1,5 @@
 using Godot;
 using System.Collections.Generic;
-using Structures.Stations;
-
-namespace Manager.UI{
 public partial class UIManager : Node
 {
     public StationUI stationUI;
@@ -64,4 +61,4 @@ public partial class UIManager : Node
     } 
 
 
-}}
+}

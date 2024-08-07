@@ -4,39 +4,30 @@ using Godot;
 public partial class Camera : Camera3D
 {
     [Export]
-    public bool invert_y;
+    public float cameraMaxFov = 120;
     [Export]
-    public bool invert_x;
+    public float cameraMinFov = 80;
     [Export]
-    public float mouse_sensitivity = 0.05f;
+    public float cameraFovMultiplier = 1f;
     [Export]
-    public float max_fov = 120;
+    public float cameraFovLerpSpeed = 0.1f;
     [Export]
-    public float default_fov = 90;
-    [Export]
-    public float min_fov = 80;
-    [Export]
-    public float fov_multiplier = 1f;
-    [Export]
-    public float fov_lerp_speed = 0.1f;
-    [Export]
-    public float camera_lerp_speed = 100f;
-    [Export]
-    public float maximum_mouse_rotation = 90;
-    [Export]
-    public Vector3 offset = new Vector3(0, 30, 85);
-    private ShipController shipController;
-    private int dirY;
-    private int dirX;
+    public float cameraPosLerpSpeed = 80f;
 
-    private Vector2 viewport;
-
+    private Spaceship shipController;
     public override void _Ready()
     {
+        setupCamera();
+    }
+    public override void _Process(double delta)
+    {
+        followShip(delta);
+    }
 
+
+    protected void setupCamera(){
         Input.MouseMode = Input.MouseModeEnum.Captured;
-        shipController = GetNode<ShipController>("../");
-        viewport = GetWindow().Size;
+        shipController = GetNode<Spaceship>("../ViperClass");
         
         if(shipController != null){
             GD.Print("Shipcontroller found!");
@@ -45,65 +36,25 @@ public partial class Camera : Camera3D
         else{
             GD.Print("Shipcontroller not found!");
         }
-
-
-        //Mouse Inversion setup
-        //Interesting way of making an if statement I saw in a blog: var x = statement ? true : false;
-        dirY = invert_y ? dirY = 1 : dirY = -1;
-        dirX = invert_x ? dirX = 1 : dirX = -1;
     }
 
-    public override void _UnhandledInput(InputEvent @event)
-{
-    //Camera mouse controls
-        if (@event is InputEventMouseMotion mouseEvent)
-        {
-            float deltaX = Mathf.Clamp(mouseEvent.Relative.X, -maximum_mouse_rotation, maximum_mouse_rotation);
-            float deltaY = Mathf.Clamp(mouseEvent.Relative.Y, -maximum_mouse_rotation, maximum_mouse_rotation);
-
-            if (mouseEvent.Relative.X != 0)
-            {
-                shipController.yaw_input = dirX * deltaX * mouse_sensitivity;
-                //yaw
-            }
-
-            if (mouseEvent.Relative.Y != 0)
-            {
-                shipController.pitch_input = dirY * deltaY * mouse_sensitivity;
-                //Pitch
-            }
-
-        }
-
+    protected void adjustFOV(double delta){
+        Fov = Mathf.Lerp(Fov, cameraMaxFov * cameraFovMultiplier, shipController.GetShipVelocity().Length() * cameraFovLerpSpeed * (float)delta);
     }
 
-    public override void _Process(double delta)
-    {
-
-
-        //FOV Adjustments
-        if(shipController.currentThrustState is ShipController.thrustState.Forward){
-            Fov = Mathf.Lerp(Fov, max_fov * fov_multiplier, (shipController.velocity.Length() * fov_lerp_speed) * (float)delta);
-        }
-        else if(shipController.currentThrustState is ShipController.thrustState.Backwards){
-            Fov = Mathf.Lerp(Fov, min_fov * fov_multiplier, (shipController.velocity.Length() * fov_lerp_speed) * (float)delta);
-        }
-        else{
-            Fov = Mathf.Lerp(Fov, default_fov * fov_multiplier, (shipController.velocity.Length() * fov_lerp_speed) * (float)delta);
-        }
-        //GD.Print("Current FOV:" + Fov);
-
-
-        Vector3 rotatedOffset = shipController.GlobalTransform.Basis * offset;
+    protected void followShip(double delta){
+        Vector3 rotatedOffset = shipController.GlobalTransform.Basis * shipController.GetCameraOffset();
         GlobalPosition = shipController.GlobalPosition + rotatedOffset;
 
         Quaternion shipRotation = shipController.GlobalTransform.Basis.GetRotationQuaternion();
         Quaternion cameraRotation = GlobalTransform.Basis.GetRotationQuaternion();
 
         //Spherical Linear Interpolation for the camera
-        Quaternion slerpRotation = cameraRotation.Slerp(shipRotation, camera_lerp_speed * (float)delta);
+        Quaternion slerpRotation = cameraRotation.Slerp(shipRotation, cameraPosLerpSpeed * (float)delta);
+        //Quaternion slerpRotation = shipRotation;
 
         Basis slerpBasis = new Basis(slerpRotation);
         GlobalTransform = new Transform3D(slerpBasis, GlobalPosition);
+
     }
 }

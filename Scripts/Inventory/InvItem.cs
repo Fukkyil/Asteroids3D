@@ -5,7 +5,7 @@ using System;
 
 
 
-namespace Manager.Inventory.Item{
+
 public partial class InvItem : Node
 {
 public enum ItemTypeEnum{Weapon, Ore, Biological, Power, Disposable, Consumable};
@@ -19,4 +19,4 @@ public Texture2D ItemTexture;
 public int ItemPrice;
 public ItemTypeEnum ItemType;
 public ItemFactionEnum ItemFaction;
-}}
+}

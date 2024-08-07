@@ -6,7 +6,7 @@
 
 [node name="PanelContainer" type="PanelContainer"]
 custom_minimum_size = Vector2(334, 40)
-offset_right = 344.0
+offset_right = 334.0
 offset_bottom = 40.0
 script = ExtResource("1_sfn85")
 
@@ -23,10 +23,8 @@ size_flags_vertical = 4
 columns = 3
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(250, 0)
-layout_direction = 2
 layout_mode = 2
-columns = 2
+columns = 3
 
 [node name="WeaponTexture" type="TextureRect" parent="MarginContainer/GridContainer/GridContainer"]
 custom_minimum_size = Vector2(32, 32)
@@ -36,20 +34,27 @@ size_flags_vertical = 4
 texture = SubResource("PlaceholderTexture2D_hv34k")
 
 [node name="WeaponName" type="Label" parent="MarginContainer/GridContainer/GridContainer"]
+custom_minimum_size = Vector2(201, 30)
 layout_mode = 2
-size_flags_horizontal = 6
-text = "WeaponName"
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 12.0
+text = "Lorem Ipsum my assddss"
+vertical_alignment = 1
+autowrap_mode = 1
+clip_text = true
 
 [node name="VSeparator" type="VSeparator" parent="MarginContainer/GridContainer"]
-custom_minimum_size = Vector2(10, 0)
+custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/GridContainer"]
 layout_mode = 2
 
 [node name="WeaponPrice" type="Label" parent="MarginContainer/GridContainer/PanelContainer"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "12312"
+text = "120.000CU"
+clip_text = true
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
