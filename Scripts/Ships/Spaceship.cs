@@ -1,8 +1,12 @@
 using Godot;
-using System;
 
 public partial class Spaceship : RigidBody3D
 {
+    //Weapon variables
+    protected WeaponSlotManager slotManager;
+    protected Node3D[] WeaponSlotOrigins;
+    
+
     //Acceleration variables
     protected float shipMaxSpeed;
     protected float shipAcceleration;
@@ -10,33 +14,29 @@ public partial class Spaceship : RigidBody3D
     protected Vector3 shipVelocity;
 
     //Rotation variables
-    protected float shipPitchSpeed;
-    protected float shipYawSpeed;
-    protected float shipRollSpeed;
+    [Export]
+    protected float shipRotationSpeed;
 
     //Rotation Quaternions
     protected Quaternion shipPitchQuat;
     protected Quaternion shipYawQuat;
     protected Quaternion shipRollQuat;
 
-    //Input variables
-    protected float shipPitchInput;
-    protected float shipYawInput;
-    protected float shipRollInput;
-    protected float mouseDeltaY;
-    protected float mouseDeltaX;
-    protected float mouseMaxRotation = 200;
-    protected float mouseSensitivity = 0.05f;
-
     //Inventory variables
     protected int shipInvSize;
 
     //Camera variables
     protected Vector3 shipCameraOffset;
+    protected Camera shipCameraNode;
 
     //Player variables
     protected Node playerNode;
 
+
+    public override void _Ready()
+    {
+        ShipUI.Instance.SetSpaceshipNode(this);
+    }
     public override void _Process(double delta)
     {
         manageInputs(delta);
@@ -54,21 +54,9 @@ public partial class Spaceship : RigidBody3D
     public Vector3 GetCameraOffset(){
         return shipCameraOffset;
     }
-    public override void _UnhandledInput(InputEvent @event){
-        if(@event is InputEventMouseMotion mouseEvent){
-            //mouseDeltaX = Mathf.Clamp(mouseEvent.Relative.X, -mouseMaxRotation, mouseMaxRotation);
-                mouseDeltaX = mouseEvent.Relative.X;
-            //mouseDeltaY = Mathf.Clamp(mouseEvent.Relative.Y, -mouseMaxRotation, mouseMaxRotation);
-                mouseDeltaY = mouseEvent.Relative.Y;
 
-            if(mouseEvent.Relative.Y != 0){
-                shipPitchInput = -(mouseDeltaY * mouseSensitivity);
-            }
-
-            if(mouseEvent.Relative.X != 0){
-                shipYawInput = -(mouseDeltaX * mouseSensitivity);
-            }
-        }
+    public void SetCameraNode(Camera camera){
+        shipCameraNode = camera;
     }
     protected void manageInputs(double delta){
         //Throttle input mainline
@@ -81,39 +69,19 @@ public partial class Spaceship : RigidBody3D
         else{
             shipForwardSpeed = 0;
         }
-
-        //Rotation input mainline
-        shipRollInput = Input.GetAxis("roll_right", "roll_left");
-
-        //Mouse input mainline
-        /*if (mouseDeltaX != 0){
-            shipYawInput = -(mouseDeltaX * mouseSensitivity);
-        }
-        if (mouseDeltaY != 0)
-        {
-            shipPitchInput = -(mouseDeltaY * mouseSensitivity);
-        }*/
-
     }
 
     protected void manageRotation(double delta){
-        //Setting rotations based on the inputs
-		shipPitchQuat = new Quaternion(Vector3.Right, shipPitchInput * shipPitchSpeed * (float)delta);
-		shipYawQuat = new Quaternion(Vector3.Up, shipYawInput * shipYawSpeed * (float)delta);
-		shipRollQuat = new Quaternion(Vector3.Forward, shipRollInput * shipRollSpeed * (float)delta);
-
         Transform3D currentTransform = GlobalTransform;
-	    Quaternion currentRotation = new Quaternion(currentTransform.Basis);
-	   
-	    currentRotation = currentRotation * shipRollQuat * shipPitchQuat * shipYawQuat;
-	    currentRotation.Normalized();
+        Quaternion currentRotation = new Quaternion(GlobalTransform.Basis);
+        Quaternion cameraRotation = new Quaternion(shipCameraNode.GlobalTransform.Basis);
 
-	    currentTransform.Basis = new Basis(currentRotation);
-	    GlobalTransform = currentTransform;
+        currentRotation = currentRotation.Slerp(cameraRotation, shipRotationSpeed * (float)delta);
+        //1 = instant
+        currentRotation.Normalized();
 
-		shipYawInput = 0;
-		shipPitchInput = 0;
-		shipRollInput = 0;
+        currentTransform.Basis = new Basis(currentRotation);
+        GlobalTransform = currentTransform;
     }
 
     protected void manageMovement(double delta){
@@ -125,6 +93,6 @@ public partial class Spaceship : RigidBody3D
         }
         
         MoveAndCollide(shipVelocity);
+        shipCameraNode.followShip(delta);
     }
-
 }

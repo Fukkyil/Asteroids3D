@@ -1,11 +1,6 @@
 using Godot;
 using System;
 
-
-
-
-
-
 public partial class InvItem : Node
 {
 public enum ItemTypeEnum{Weapon, Ore, Biological, Power, Disposable, Consumable};

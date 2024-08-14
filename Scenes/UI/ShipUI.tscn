@@ -1,16 +1,37 @@
-[gd_scene load_steps=2 format=3 uid="uid://brlugoyojhk2"]
+[gd_scene load_steps=8 format=3 uid="uid://brlugoyojhk2"]
 
-[ext_resource type="Script" path="res://Scripts/UI/ShipUI.cs" id="1_obosg"]
+[ext_resource type="Script" path="res://Scripts/UI/Ship UI/ShipUI.cs" id="1_obosg"]
+[ext_resource type="Script" path="res://Scripts/UI/Ship UI/CameraCursor.cs" id="2_3iypb"]
+[ext_resource type="Texture2D" uid="uid://buw33kllwoqku" path="res://Textures/Asteroids CameraCursor.svg" id="3_rw1ib"]
+[ext_resource type="Texture2D" uid="uid://brqj5jvlta4g7" path="res://Textures/ShipCursor.svg" id="4_24e66"]
 
-[node name="ShipUI" type="CanvasLayer"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ce5p4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i1x3v"]
+
+[sub_resource type="Theme" id="Theme_bf8dl"]
+Panel/styles/panel = SubResource("StyleBoxEmpty_ce5p4")
+PanelContainer/styles/panel = SubResource("StyleBoxEmpty_i1x3v")
+
+[node name="ShipUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
 script = ExtResource("1_obosg")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -77.0
-offset_right = 96.0
+offset_top = -87.0
+offset_right = 116.0
 grow_vertical = 0
 metadata/_edit_use_anchors_ = true
 
@@ -50,3 +71,38 @@ text = "Momentum"
 layout_mode = 2
 text = "
 "
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+mouse_filter = 2
+use_top_left = true
+
+[node name="CameraCursor" type="Control" parent="CenterContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("2_3iypb")
+segmentNum = 128
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+layout_mode = 2
+texture = ExtResource("3_rw1ib")
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+mouse_filter = 2
+theme = SubResource("Theme_bf8dl")
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer2"]
+layout_mode = 2
+texture = ExtResource("4_24e66")

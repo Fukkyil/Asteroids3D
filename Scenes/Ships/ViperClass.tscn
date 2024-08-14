@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ds8be5rkywnqh"]
+[gd_scene load_steps=5 format=3 uid="uid://ds8be5rkywnqh"]
 
 [ext_resource type="Script" path="res://Scripts/Ships/ViperClass.cs" id="1_5f1gi"]
 [ext_resource type="ArrayMesh" uid="uid://eqw6yyp5baku" path="res://Models/Ships/Viper.obj" id="2_so5dp"]
+[ext_resource type="PackedScene" uid="uid://uo2rauq5jetp" path="res://Scenes/Weapons/Slots/small_turret_slot.tscn" id="3_nf210"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c63fa"]
 size = Vector3(48, 16, 48)
@@ -18,3 +19,6 @@ mesh = ExtResource("2_so5dp")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -2.29791)
 shape = SubResource("BoxShape3D_c63fa")
+
+[node name="SmallTurretSlot" parent="." instance=ExtResource("3_nf210")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -4.16719)
