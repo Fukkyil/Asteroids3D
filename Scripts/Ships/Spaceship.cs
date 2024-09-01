@@ -1,11 +1,13 @@
+using System.Collections.Generic;
 using Godot;
 
 public partial class Spaceship : RigidBody3D
 {
     //Weapon variables
-    protected WeaponSlotManager slotManager;
-    protected Node3D[] WeaponSlotOrigins;
-    
+    public WeaponSlotManager slotManager = new WeaponSlotManager();
+    public int PrimaryWeaponCount {get; protected set;}
+    public int SecondaryWeaponCount {get; protected set;}
+    public int TertiaryWeaponCount {get; protected set;}
 
     //Acceleration variables
     protected float shipMaxSpeed;
@@ -29,13 +31,11 @@ public partial class Spaceship : RigidBody3D
     protected Vector3 shipCameraOffset;
     protected Camera shipCameraNode;
 
-    //Player variables
-    protected Node playerNode;
-
 
     public override void _Ready()
     {
         ShipUI.Instance.SetSpaceshipNode(this);
+        slotManager.ParentSpaceship = this;
     }
     public override void _Process(double delta)
     {
@@ -68,6 +68,18 @@ public partial class Spaceship : RigidBody3D
         }
         else{
             shipForwardSpeed = 0;
+        }
+
+        if(Input.IsActionPressed("shoot_primary_weapon")){
+            slotManager.FirePrimaryWeapons();
+        }
+
+        if(Input.IsActionPressed("shoot_secondary_weapon")){
+            slotManager.FireSecondaryWeapons();
+        }
+
+        if(Input.IsActionPressed("shoot_tertiary_weapon")){
+            slotManager.FireTertiaryWeapons();
         }
     }
 

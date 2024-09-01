@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Ships/ViperClass.cs" id="1_5f1gi"]
 [ext_resource type="ArrayMesh" uid="uid://eqw6yyp5baku" path="res://Models/Ships/Viper.obj" id="2_so5dp"]
-[ext_resource type="PackedScene" uid="uid://uo2rauq5jetp" path="res://Scenes/Weapons/Slots/small_turret_slot.tscn" id="3_nf210"]
+[ext_resource type="PackedScene" uid="uid://liasse18hm26" path="res://Scenes/Weapons/Slots/SmallTurretSlot.tscn" id="3_t2y11"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c63fa"]
 size = Vector3(48, 16, 48)
@@ -20,5 +20,16 @@ mesh = ExtResource("2_so5dp")
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -2.29791)
 shape = SubResource("BoxShape3D_c63fa")
 
-[node name="SmallTurretSlot" parent="." instance=ExtResource("3_nf210")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, -4.16719)
+[node name="SmallTurretSlot" parent="." node_paths=PackedStringArray("equippedWeapon") instance=ExtResource("3_t2y11")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.58306, -2.81779)
+equippedWeapon = NodePath("")
+
+[node name="SmallTurretSlot2" parent="." node_paths=PackedStringArray("equippedWeapon") instance=ExtResource("3_t2y11")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 1)
+equippedWeapon = NodePath("")
+slotPriority = 1
+
+[node name="SmallTurretSlot3" parent="." node_paths=PackedStringArray("equippedWeapon") instance=ExtResource("3_t2y11")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 1)
+equippedWeapon = NodePath("")
+slotPriority = 1

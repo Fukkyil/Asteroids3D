@@ -53,7 +53,6 @@ public partial class ShipUI : Control
 		if (isVisible){
 			shipCursor.Position = screenPosition + screenCenter;
 			shipCursor.Visible = true;
-			GD.Print("Difference: ", cameraNode.GlobalPosition - spaceshipNode.GlobalPosition);
 		}
 		else{
 			shipCursor.Visible = false;

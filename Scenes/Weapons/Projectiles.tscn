@@ -10,7 +10,7 @@ emission_energy_multiplier = 5.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_yvxrg"]
 material = SubResource("StandardMaterial3D_e3r7s")
-size = Vector3(1.5, 15, 1.5)
+size = Vector3(0.6, 6, 0.6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_q4c4u"]
 size = Vector3(1.5, 15, 1.5)
@@ -19,9 +19,12 @@ size = Vector3(1.5, 15, 1.5)
 collision_layer = 16
 collision_mask = 111
 script = ExtResource("1_jkhdt")
+muzzle_speed = null
+playerCollisionLayer = null
+timeToDespawn = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.4, 0, 0, 0, -1.74846e-08, -0.4, 0, 0.4, -1.74846e-08, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("BoxMesh_yvxrg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

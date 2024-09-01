@@ -10,5 +10,9 @@ public partial class ViperClass : Spaceship
         shipRotationSpeed = 0.5f;
 
         shipCameraOffset = new Vector3(0, 13, 20);
+
+        PrimaryWeaponCount = 1;
+        SecondaryWeaponCount = 2;
+        TertiaryWeaponCount = 0;
     }
 }

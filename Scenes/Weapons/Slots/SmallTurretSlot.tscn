@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://liasse18hm26"]
+
+[ext_resource type="Script" path="res://Scripts/Weapons/Slots/SmallTurretSlot.cs" id="1_3si64"]
+
+[node name="SmallTurretSlot" type="Node3D" node_paths=PackedStringArray("equippedWeapon")]
+script = ExtResource("1_3si64")
+equippedWeapon = NodePath("")

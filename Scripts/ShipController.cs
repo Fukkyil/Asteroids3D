@@ -92,7 +92,7 @@ public partial class ShipController : RigidBody3D
 		Owner.AddChild(bullet);
 		bullet.GlobalPosition = GetNode<Node3D>("MainGun").GlobalPosition;
 		bullet.GlobalRotation = GlobalRotation;
-		bullet.rotation = -GetNode<Node3D>("MainGun").GlobalTransform.Basis.Z;
+		//bullet.rotation = -GetNode<Node3D>("MainGun").GlobalTransform.Basis.Z;
 
 		shootTimer.Start(shotCooldown);
 	}

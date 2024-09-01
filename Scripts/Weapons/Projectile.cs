@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Projectile : Area3D
+public partial class Projectile1 : Area3D
 {
     [Signal]
     public delegate void hitEventHandler(Vector3 position);
@@ -27,7 +27,7 @@ public partial class Projectile : Area3D
         SetCollisionMaskValue(playerCollisionLayer, false);
         StartTimer();
     }
-
+    
     public override void _Process(double delta){
        velocity =  rotation.Normalized() * muzzle_speed;
        GlobalTransform = new Transform3D(GlobalTransform.Basis, GlobalTransform.Origin + velocity * (float)delta);
