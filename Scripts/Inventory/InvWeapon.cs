@@ -10,19 +10,19 @@ public partial class InvWeapon : InvItem
     protected WeaponClassEnum WeaponClass;
     protected WeaponAmmoEnum WeaponAmmo;
     protected WeaponTypeEnum WeaponType;
-    public virtual void Shoot(){
+    public virtual void Shoot(Node3D origin){
         GD.Print("Shoot was called from the base InvWeapon class or in an unimplemented child class!!");
     }
 
     protected void onHit(){
-
+        GD.Print("onHit was called from the base InvWeapon class or in an unimplemented child class!!");
     }
 
     protected void onDespawn(){
-
+        GD.Print("onDespawn was called from the base InvWeapon class or in an unimplemented child class!!");
     }
 
     protected void dealDamage(){
-
+        GD.Print("dealDamage was called from the base InvWeapon class or in an unimplemented child class!!");
     }
 }

@@ -20,16 +20,13 @@ mesh = ExtResource("2_so5dp")
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, -2.29791)
 shape = SubResource("BoxShape3D_c63fa")
 
-[node name="SmallTurretSlot" parent="." node_paths=PackedStringArray("equippedWeapon") instance=ExtResource("3_t2y11")]
+[node name="SmallTurretSlot" parent="." instance=ExtResource("3_t2y11")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.58306, -2.81779)
-equippedWeapon = NodePath("")
 
-[node name="SmallTurretSlot2" parent="." node_paths=PackedStringArray("equippedWeapon") instance=ExtResource("3_t2y11")]
+[node name="SmallTurretSlot2" parent="." instance=ExtResource("3_t2y11")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 1)
-equippedWeapon = NodePath("")
 slotPriority = 1
 
-[node name="SmallTurretSlot3" parent="." node_paths=PackedStringArray("equippedWeapon") instance=ExtResource("3_t2y11")]
+[node name="SmallTurretSlot3" parent="." instance=ExtResource("3_t2y11")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 1)
-equippedWeapon = NodePath("")
 slotPriority = 1

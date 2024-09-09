@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Weapons/Slots/SmallTurretSlot.cs" id="1_3si64"]
 
-[node name="SmallTurretSlot" type="Node3D" node_paths=PackedStringArray("equippedWeapon")]
+[node name="SmallTurretSlot" type="Node3D"]
 script = ExtResource("1_3si64")
-equippedWeapon = NodePath("")
+
+[node name="CooldownTimer" type="Timer" parent="."]
